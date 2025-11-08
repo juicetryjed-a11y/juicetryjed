@@ -643,26 +643,35 @@ export const dataService = {
       if (existingData && existingData.length > 0) {
         // تحديث الصف الموجود
         console.log('📝 Updating existing settings with ID:', existingData[0].id)
+        
+        // تنظيف البيانات - إزالة القيم undefined و null
+        const cleanSettings = Object.fromEntries(
+          Object.entries(settingsWithoutId).filter(([_, v]) => v !== undefined && v !== null)
+        )
+        
         result = await supabase
           .from('site_settings')
           .update({
-            ...settingsWithoutId,
+            ...cleanSettings,
             updated_at: new Date().toISOString()
           })
           .eq('id', existingData[0].id)
           .select()
-          .maybeSingle()
       } else {
         // إنشاء صف جديد
         console.log('➕ Creating new settings...')
+        
+        const cleanSettings = Object.fromEntries(
+          Object.entries(settingsWithoutId).filter(([_, v]) => v !== undefined && v !== null)
+        )
+        
         result = await supabase
           .from('site_settings')
           .insert([{
-            ...settingsWithoutId,
+            ...cleanSettings,
             updated_at: new Date().toISOString()
           }])
           .select()
-          .maybeSingle()
       }
       
       if (result.error) {
