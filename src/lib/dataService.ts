@@ -651,7 +651,7 @@ export const dataService = {
           })
           .eq('id', existingData[0].id)
           .select()
-          .single()
+          .maybeSingle()
       } else {
         // إنشاء صف جديد
         console.log('➕ Creating new settings...')
@@ -662,7 +662,7 @@ export const dataService = {
             updated_at: new Date().toISOString()
           }])
           .select()
-          .single()
+          .maybeSingle()
       }
       
       if (result.error) {
