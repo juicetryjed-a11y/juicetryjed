@@ -75,11 +75,31 @@ const CategoriesTab: React.FC = () => {
 
     try {
       setSaving(true)
-      const { error } = await supabase
-        .from('categories')
-        .upsert(editingCategory, { onConflict: 'id' })
+      
+      // إذا كان تصنيف جديد (ID مؤقت)، استخدم insert بدلاً من upsert
+      if (editingCategory.id > 1000000000) {
+        // تصنيف جديد - احذف الـ ID المؤقت ودع قاعدة البيانات تولد ID جديد
+        const { id, created_at, updated_at, ...categoryData } = editingCategory
+        const { error } = await supabase
+          .from('categories')
+          .insert(categoryData)
 
-      if (error) throw error
+        if (error) throw error
+      } else {
+        // تصنيف موجود - استخدم update
+        const { error } = await supabase
+          .from('categories')
+          .update({
+            name: editingCategory.name,
+            description: editingCategory.description,
+            image_url: editingCategory.image_url,
+            is_active: editingCategory.is_active,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', editingCategory.id)
+
+        if (error) throw error
+      }
 
       await fetchCategories()
       setShowForm(false)
@@ -95,7 +115,7 @@ const CategoriesTab: React.FC = () => {
 
   const openCreateForm = () => {
     setEditingCategory({
-      id: Date.now(),
+      id: Date.now(), // ID مؤقت فقط للنموذج
       name: '',
       description: '',
       image_url: '',
