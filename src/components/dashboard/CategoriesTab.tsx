@@ -301,6 +301,42 @@ const CategoriesTab: React.FC = () => {
                   placeholder="https://..."
                 />
               </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">الأيقونة (Lucide Icon)</label>
+                <input
+                  type="text"
+                  value={editingCategory.icon || ''}
+                  onChange={(e) => setEditingCategory({ ...editingCategory, icon: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                  placeholder="مثال: Apple, Grape, Cherry, Citrus, Leaf"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  أمثلة: Apple, Grape, Cherry, Citrus, Leaf, Coffee, CupSoda, Sparkles
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">اللون</label>
+                <div className="flex gap-2">
+                  <input
+                    type="color"
+                    value={editingCategory.color || '#f97316'}
+                    onChange={(e) => setEditingCategory({ ...editingCategory, color: e.target.value })}
+                    className="w-16 h-10 border border-gray-300 rounded-lg cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={editingCategory.color || '#f97316'}
+                    onChange={(e) => setEditingCategory({ ...editingCategory, color: e.target.value })}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+                    placeholder="#f97316"
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  ألوان مقترحة: #ef4444 (أحمر), #22c55e (أخضر), #f97316 (برتقالي), #a855f7 (بنفسجي)
+                </p>
+              </div>
               
               <div className="flex items-center gap-2">
                 <input
