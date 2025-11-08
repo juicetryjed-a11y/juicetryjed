@@ -29,6 +29,9 @@ const CategoriesSection: React.FC = () => {
         .eq('section_name', 'categories')
         .maybeSingle()
 
+      console.log('📊 Categories data:', categoriesData)
+      console.log('🎨 Categories with icons:', categoriesData?.map(c => ({ name: c.name, icon: c.icon, color: c.color })))
+
       if (categoriesData) setCategories(categoriesData)
       if (designData) setDesignSettings(designData)
       setLoading(false)
@@ -71,13 +74,17 @@ const CategoriesSection: React.FC = () => {
                       }}
                     >
                       {(() => {
+                        console.log(`🎨 Category ${category.name}:`, { icon: category.icon, color: category.color, hasIcon: category.icon in LucideIcons })
+                        
                         // عرض الأيقونة من Lucide إذا كانت موجودة
                         if (category.icon && category.icon in LucideIcons) {
                           const IconComponent = LucideIcons[category.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>
+                          console.log(`✅ Showing icon ${category.icon} for ${category.name}`)
                           return <IconComponent className="w-10 h-10 text-white" />
                         }
                         // عرض الصورة إذا كانت موجودة
                         if (category.image_url) {
+                          console.log(`🖼️ Showing image for ${category.name}`)
                           return (
                             <img 
                               src={category.image_url} 
@@ -87,6 +94,7 @@ const CategoriesSection: React.FC = () => {
                           )
                         }
                         // عرض أول حرف كـ fallback
+                        console.log(`📝 Showing first letter for ${category.name}`)
                         return (
                           <span className="text-white text-2xl font-bold">
                             {category.name.charAt(0)}
