@@ -599,7 +599,9 @@ export const dataService = {
       const { data, error } = await supabase
         .from('site_settings')
         .select('*')
+        .order('id', { ascending: true })
         .limit(1)
+        .maybeSingle()
       
       if (error) {
         console.error('❌ Error getting site settings:', error)
@@ -607,7 +609,7 @@ export const dataService = {
       }
       
       console.log('✅ Site settings retrieved:', data)
-      return { data: data && data.length > 0 ? data : [{}], error: null }
+      return { data: data ? [data] : [{}], error: null }
     } catch (error) {
       console.error('❌ Failed to get site settings, using mock data:', error)
       return mockAPI.getSiteSettings()
