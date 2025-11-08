@@ -1,0 +1,73 @@
+# 🔧 Environment Variables للـ Netlify
+
+## انسخ هذه المتغيرات وضعها في Netlify:
+
+### الخطوات:
+1. افتح موقعك على Netlify
+2. اذهب لـ: Site settings → Environment variables
+3. اضغط "Add a variable"
+4. انسخ كل متغير من هنا:
+
+---
+
+## المتغيرات المطلوبة:
+
+### 1. NODE_VERSION
+**Key:** NODE_VERSION
+**Value:** 18
+
+---
+
+### 2. VITE_SUPABASE_URL
+**Key:** VITE_SUPABASE_URL
+**Value:** https://ijpugtvfckmptzegdchr.supabase.co
+
+---
+
+### 3. VITE_SUPABASE_ANON_KEY
+**Key:** VITE_SUPABASE_ANON_KEY
+**Value:** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqcHVndHZmY2ttcHR6ZWdkY2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NDgxODUsImV4cCI6MjA3ODEyNDE4NX0.Jwdg1TAJ-uF9BYzGLjFisrKetypUh59ELLNoLDcH12o
+
+---
+
+### 4. VITE_USE_MOCK_DATA
+**Key:** VITE_USE_MOCK_DATA
+**Value:** false
+
+---
+
+### 5. VITE_DISABLE_LOCALSTORAGE
+**Key:** VITE_DISABLE_LOCALSTORAGE
+**Value:** true
+
+---
+
+## 📋 نسخة سريعة (للنسخ المباشر):
+
+NODE_VERSION=18
+VITE_SUPABASE_URL=https://ijpugtvfckmptzegdchr.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqcHVndHZmY2ttcHR6ZWdkY2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NDgxODUsImV4cCI6MjA3ODEyNDE4NX0.Jwdg1TAJ-uF9BYzGLjFisrKetypUh59ELLNoLDcH12o
+VITE_USE_MOCK_DATA=false
+VITE_DISABLE_LOCALSTORAGE=true
+
+---
+
+## ✅ بعد إضافة المتغيرات:
+
+1. اضغط "Save"
+2. اذهب لـ "Deploys"
+3. اضغط "Trigger deploy" → "Deploy site"
+4. انتظر اكتمال البناء
+5. افتح الموقع وجرب!
+
+---
+
+## 🎯 ملاحظة مهمة:
+إذا رفعت مجلد `dist` مباشرة (Drag & Drop)، المتغيرات موجودة بالفعل في الملفات المبنية!
+لكن إذا ربطت GitHub أو تريد إعادة البناء، ضع هذه المتغيرات.
+
+---
+
+## 🔗 روابط مفيدة:
+- Netlify Environment Variables: https://app.netlify.com/sites/YOUR-SITE/settings/deploys#environment
+- Supabase Dashboard: https://supabase.com/dashboard/project/ijpugtvfckmptzegdchr

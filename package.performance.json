@@ -1,0 +1,34 @@
+{
+  "name": "juicetry-fast",
+  "version": "2.0.0",
+  "description": "Fast and optimized Juicetry website",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.config.performance.ts",
+    "build": "vite build --config vite.config.performance.ts",
+    "preview": "vite preview --config vite.config.performance.ts",
+    "fast": "vite --config vite.config.performance.ts --host",
+    "build:fast": "vite build --config vite.config.performance.ts --mode production",
+    "analyze": "vite build --config vite.config.performance.ts && npx vite-bundle-analyzer dist"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "lucide-react": "^0.263.1",
+    "@supabase/supabase-js": "^2.33.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

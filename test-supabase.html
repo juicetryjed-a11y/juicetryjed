@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار اتصال Supabase</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #ff6b35;
+            padding-bottom: 10px;
+        }
+        button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #e55a2b;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 اختبار اتصال Supabase</h1>
+        
+        <div>
+            <button onclick="testConnection()">1️⃣ اختبار الاتصال</button>
+            <button onclick="testProducts()">2️⃣ جلب المنتجات</button>
+            <button onclick="testCategories()">3️⃣ جلب التصنيفات</button>
+            <button onclick="testInsert()">4️⃣ اختبار الإضافة</button>
+            <button onclick="clearResults()">🗑️ مسح النتائج</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        const SUPABASE_URL = 'https://ijpugtvfckmptzeqdchr.supabase.co'
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqcHVndHZmY2ttcHR6ZWdkY2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NDgxODUsImV4cCI6MjA3ODEyNDE4NX0.Jwdg1TAJ-uF9BYzGLjFisrKetypUh59ELLNoLDcH12o'
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+
+        window.supabase = supabase
+
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results')
+            const div = document.createElement('div')
+            div.className = `result ${type}`
+            div.textContent = message
+            results.appendChild(div)
+            results.scrollTop = results.scrollHeight
+        }
+
+        window.testConnection = async function() {
+            addResult('🔄 جاري اختبار الاتصال...', 'info')
+            
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('count')
+                    .limit(1)
+                
+                if (error) {
+                    addResult(`❌ خطأ في الاتصال:\n${JSON.stringify(error, null, 2)}`, 'error')
+                } else {
+                    addResult(`✅ الاتصال ناجح!\nURL: ${SUPABASE_URL}`, 'success')
+                }
+            } catch (err) {
+                addResult(`❌ خطأ:\n${err.message}`, 'error')
+            }
+        }
+
+        window.testProducts = async function() {
+            addResult('🔄 جاري جلب المنتجات...', 'info')
+            
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .limit(10)
+                
+                if (error) {
+                    addResult(`❌ خطأ:\n${JSON.stringify(error, null, 2)}`, 'error')
+                } else {
+                    addResult(`✅ تم جلب ${data.length} منتج:\n${JSON.stringify(data, null, 2)}`, 'success')
+                }
+            } catch (err) {
+                addResult(`❌ خطأ:\n${err.message}`, 'error')
+            }
+        }
+
+        window.testCategories = async function() {
+            addResult('🔄 جاري جلب التصنيفات...', 'info')
+            
+            try {
+                const { data, error } = await supabase
+                    .from('categories')
+                    .select('*')
+                
+                if (error) {
+                    addResult(`❌ خطأ:\n${JSON.stringify(error, null, 2)}`, 'error')
+                } else {
+                    addResult(`✅ تم جلب ${data.length} تصنيف:\n${JSON.stringify(data, null, 2)}`, 'success')
+                }
+            } catch (err) {
+                addResult(`❌ خطأ:\n${err.message}`, 'error')
+            }
+        }
+
+        window.testInsert = async function() {
+            addResult('🔄 جاري اختبار الإضافة...', 'info')
+            
+            try {
+                const testProduct = {
+                    name: 'منتج تجريبي ' + Date.now(),
+                    description: 'وصف تجريبي',
+                    price: 25.00,
+                    category_id: 1,
+                    image_url: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800',
+                    is_active: true,
+                    is_featured: false
+                }
+                
+                const { data, error } = await supabase
+                    .from('products')
+                    .insert([testProduct])
+                    .select()
+                
+                if (error) {
+                    addResult(`❌ خطأ في الإضافة:\n${JSON.stringify(error, null, 2)}`, 'error')
+                } else {
+                    addResult(`✅ تم إضافة المنتج بنجاح:\n${JSON.stringify(data, null, 2)}`, 'success')
+                }
+            } catch (err) {
+                addResult(`❌ خطأ:\n${err.message}`, 'error')
+            }
+        }
+
+        window.clearResults = function() {
+            document.getElementById('results').innerHTML = ''
+        }
+
+        // اختبار تلقائي عند فتح الصفحة
+        addResult('📋 صفحة اختبار Supabase جاهزة\nانقر على الأزرار لاختبار الوظائف', 'info')
+    </script>
+</body>
+</html>
