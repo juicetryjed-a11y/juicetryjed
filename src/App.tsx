@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/contexts/SimpleAuthContext'
 import FastHomePage from '@/pages/FastHomePage'
@@ -11,6 +11,8 @@ import ProductsPage from '@/pages/ProductsPage'
 import AdminLogin from '@/pages/admin/AdminLogin'
 import FullDashboard from '@/components/dashboard/FullDashboard'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import { dataService } from '@/lib/dataService'
+import { applyThemeColors } from '@/hooks/useTheme'
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -33,6 +35,32 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 function App() {
   console.log('App component rendering...')
+  
+  // تحميل وتطبيق الألوان من قاعدة البيانات
+  useEffect(() => {
+    const loadThemeColors = async () => {
+      try {
+        const { data } = await dataService.getSiteSettings()
+        if (data && data.length > 0 && data[0].primary_color) {
+          const settings = data[0]
+          applyThemeColors({
+            primary: settings.primary_color || '#22c55e',
+            secondary: settings.secondary_color || '#84cc16',
+            accent: settings.accent_color || '#eab308'
+          })
+          console.log('🎨 Theme colors applied:', {
+            primary: settings.primary_color,
+            secondary: settings.secondary_color,
+            accent: settings.accent_color
+          })
+        }
+      } catch (error) {
+        console.error('Error loading theme colors:', error)
+      }
+    }
+    
+    loadThemeColors()
+  }, [])
   
   return (
     <AuthProvider>
