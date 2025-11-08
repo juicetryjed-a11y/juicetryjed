@@ -119,7 +119,21 @@ const SiteSettingsManager: React.FC = () => {
         setSettings(data)
       }
 
-      alert('تم حفظ الإعدادات بنجاح!')
+      // تطبيق الألوان على الموقع كله فوراً بعد الحفظ
+      applyThemeColors({
+        primary: settings.primary_color,
+        secondary: settings.secondary_color,
+        accent: settings.accent_color
+      })
+      
+      // حفظ الألوان في localStorage للاستمرارية
+      localStorage.setItem('theme_colors', JSON.stringify({
+        primary: settings.primary_color,
+        secondary: settings.secondary_color,
+        accent: settings.accent_color
+      }))
+
+      alert('تم حفظ الإعدادات بنجاح! ✅')
     } catch (error) {
       console.error('Error saving site settings:', error)
       alert('حدث خطأ أثناء حفظ الإعدادات')

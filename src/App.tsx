@@ -36,23 +36,34 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 function App() {
   console.log('App component rendering...')
   
-  // تحميل وتطبيق الألوان من قاعدة البيانات
+  // تحميل وتطبيق الألوان من localStorage أو قاعدة البيانات
   useEffect(() => {
     const loadThemeColors = async () => {
       try {
+        // أولاً: جرب قراءة الألوان من localStorage
+        const savedColors = localStorage.getItem('theme_colors')
+        if (savedColors) {
+          const colors = JSON.parse(savedColors)
+          applyThemeColors(colors)
+          console.log('🎨 Theme colors applied from localStorage:', colors)
+          return
+        }
+        
+        // ثانياً: إذا لم تكن موجودة، اقرأها من قاعدة البيانات
         const { data } = await dataService.getSiteSettings()
         if (data && data.length > 0 && data[0].primary_color) {
           const settings = data[0]
-          applyThemeColors({
+          const colors = {
             primary: settings.primary_color || '#22c55e',
             secondary: settings.secondary_color || '#84cc16',
             accent: settings.accent_color || '#eab308'
-          })
-          console.log('🎨 Theme colors applied:', {
-            primary: settings.primary_color,
-            secondary: settings.secondary_color,
-            accent: settings.accent_color
-          })
+          }
+          applyThemeColors(colors)
+          
+          // احفظها في localStorage للمرات القادمة
+          localStorage.setItem('theme_colors', JSON.stringify(colors))
+          
+          console.log('🎨 Theme colors applied from database:', colors)
         }
       } catch (error) {
         console.error('Error loading theme colors:', error)
