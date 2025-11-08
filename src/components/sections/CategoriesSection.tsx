@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Category, HomepageDesignSettings } from '@/types'
 import { supabase } from '@/lib/supabase'
+import * as LucideIcons from 'lucide-react'
 
 const CategoriesSection: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([])
@@ -62,18 +63,36 @@ const CategoriesSection: React.FC = () => {
                   className="group"
                 >
                   <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                      {category.image_url ? (
-                        <img 
-                          src={category.image_url} 
-                          alt={category.name}
-                          className="w-12 h-12 object-cover rounded-full"
-                        />
-                      ) : (
-                        <span className="text-white text-2xl font-bold">
-                          {category.name.charAt(0)}
-                        </span>
-                      )}
+                    <div 
+                      className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center"
+                      style={{ 
+                        backgroundColor: category.color || '#f97316',
+                        background: `linear-gradient(135deg, ${category.color || '#f97316'} 0%, ${category.color ? category.color + 'dd' : '#ea580c'} 100%)`
+                      }}
+                    >
+                      {(() => {
+                        // عرض الأيقونة من Lucide إذا كانت موجودة
+                        if (category.icon && category.icon in LucideIcons) {
+                          const IconComponent = LucideIcons[category.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>
+                          return <IconComponent className="w-10 h-10 text-white" />
+                        }
+                        // عرض الصورة إذا كانت موجودة
+                        if (category.image_url) {
+                          return (
+                            <img 
+                              src={category.image_url} 
+                              alt={category.name}
+                              className="w-12 h-12 object-cover rounded-full"
+                            />
+                          )
+                        }
+                        // عرض أول حرف كـ fallback
+                        return (
+                          <span className="text-white text-2xl font-bold">
+                            {category.name.charAt(0)}
+                          </span>
+                        )
+                      })()}
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 text-center mb-2 group-hover:text-orange-500 transition-colors">
                       {category.name}
