@@ -17,10 +17,12 @@ const NewHeader: React.FC = () => {
     { id: 5, label: 'تواصل معنا', url: '/contact', icon: Phone },
   ]
 
-  // قائمة الموبايل - فقط المنيو والمقالات
+  // قائمة الموبايل - المنيو والمقالات ومن نحن واتصل بنا
   const mobileMenuItems = [
     { id: 2, label: 'المنيو', url: '/menu', icon: Coffee },
     { id: 3, label: 'المقالات', url: '/blog', icon: BookOpen },
+    { id: 4, label: 'من نحن', url: '/about', icon: Users },
+    { id: 5, label: 'اتصل بنا', url: '/contact', icon: Phone },
   ]
 
   // استخدام الألوان من الإعدادات

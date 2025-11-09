@@ -103,7 +103,7 @@ const SimpleHeader: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Menu - فقط المنيو والمقالات */}
+        {/* Mobile Menu - المنيو والمقالات ومن نحن واتصل بنا */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 mt-4">
             <nav className="flex flex-col gap-2">
@@ -128,6 +128,28 @@ const SimpleHeader: React.FC = () => {
                 }`}
               >
                 المقالات
+              </Link>
+              <Link 
+                to="/about" 
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive('/about') 
+                    ? 'text-green-600 bg-green-50 font-bold' 
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                }`}
+              >
+                من نحن
+              </Link>
+              <Link 
+                to="/contact" 
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive('/contact') 
+                    ? 'text-green-600 bg-green-50 font-bold' 
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                }`}
+              >
+                اتصل بنا
               </Link>
             </nav>
           </div>
