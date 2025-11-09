@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Save, Mail, Phone, MapPin, Globe, Settings as SettingsIcon } from 'lucide-react'
+import { Save, Mail, Phone, MapPin, Globe, Settings as SettingsIcon, Upload, Image as ImageIcon } from 'lucide-react'
 
 interface SiteSettings {
   id?: number
@@ -45,6 +45,7 @@ const SettingsTab: React.FC = () => {
   })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
     fetchSettings()
@@ -88,6 +89,58 @@ const SettingsTab: React.FC = () => {
     } catch (error) {
       console.error('خطأ في جلب الإعدادات:', error)
       setLoading(false)
+    }
+  }
+
+  const handleImageUpload = async (file: File, type: 'logo' | 'favicon') => {
+    try {
+      setUploading(true)
+      console.log(`🔄 رفع ${type}...`, file.name)
+
+      // إنشاء اسم فريد للملف
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${type}-${Date.now()}.${fileExt}`
+      const filePath = `site-assets/${fileName}`
+
+      // رفع الملف على Supabase Storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('images')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        })
+
+      if (uploadError) {
+        console.error('❌ خطأ في رفع الصورة:', uploadError)
+        throw uploadError
+      }
+
+      // الحصول على رابط الصورة
+      const { data: urlData } = supabase.storage
+        .from('images')
+        .getPublicUrl(filePath)
+
+      const imageUrl = urlData.publicUrl
+      console.log('✅ تم رفع الصورة:', imageUrl)
+
+      // تحديث الإعدادات
+      const field = type === 'logo' ? 'site_logo' : 'site_favicon'
+      setSettings(prev => ({ ...prev, [field]: imageUrl }))
+
+      // حفظ في قاعدة البيانات فوراً
+      const { error: updateError } = await supabase
+        .from('site_settings')
+        .update({ [field]: imageUrl, updated_at: new Date().toISOString() })
+        .eq('id', settings.id ?? 1)
+
+      if (updateError) throw updateError
+
+      alert(`تم رفع ${type === 'logo' ? 'الشعار' : 'الأيقونة'} بنجاح ✅`)
+    } catch (error: any) {
+      console.error(`❌ خطأ في رفع ${type}:`, error)
+      alert(`حدث خطأ في رفع ${type === 'logo' ? 'الشعار' : 'الأيقونة'}: ${error.message}`)
+    } finally {
+      setUploading(false)
     }
   }
 
@@ -180,6 +233,74 @@ const SettingsTab: React.FC = () => {
                   className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
                   placeholder="https://joustry.com"
                 />
+              </div>
+            </div>
+
+            {/* رفع الشعار */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                شعار الموقع (Logo)
+              </label>
+              <div className="flex items-center gap-4">
+                {settings.site_logo && (
+                  <img 
+                    src={settings.site_logo} 
+                    alt="Logo" 
+                    className="w-20 h-20 object-contain border border-gray-300 rounded-lg p-2"
+                  />
+                )}
+                <label className="flex-1 cursor-pointer">
+                  <div className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-orange-500 transition-colors">
+                    <Upload className="w-5 h-5 text-gray-400" />
+                    <span className="text-sm text-gray-600">
+                      {uploading ? 'جاري الرفع...' : 'اختر صورة الشعار'}
+                    </span>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) handleImageUpload(file, 'logo')
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+
+            {/* رفع الأيقونة */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                أيقونة الموقع (Favicon)
+              </label>
+              <div className="flex items-center gap-4">
+                {settings.site_favicon && (
+                  <img 
+                    src={settings.site_favicon} 
+                    alt="Favicon" 
+                    className="w-12 h-12 object-contain border border-gray-300 rounded-lg p-1"
+                  />
+                )}
+                <label className="flex-1 cursor-pointer">
+                  <div className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-orange-500 transition-colors">
+                    <ImageIcon className="w-5 h-5 text-gray-400" />
+                    <span className="text-sm text-gray-600">
+                      {uploading ? 'جاري الرفع...' : 'اختر أيقونة الموقع'}
+                    </span>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) handleImageUpload(file, 'favicon')
+                    }}
+                  />
+                </label>
               </div>
             </div>
           </div>
