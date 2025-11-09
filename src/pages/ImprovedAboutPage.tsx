@@ -6,23 +6,15 @@ import Footer from '@/components/layout/Footer'
 
 interface AboutPageSettings {
   id?: number
-  title: string
-  subtitle: string
-  description: string
+  hero_title: string
+  hero_subtitle: string
+  hero_description: string
   mission_title: string
-  mission_text: string
+  mission_content: string
   vision_title: string
-  vision_text: string
+  vision_content: string
   values_title: string
-  values_text: string
-  location_name: string
-  location_address: string
-  location_url: string
-  background_color: string
-  text_color: string
-  accent_color: string
-  title_color: string
-  is_active: boolean
+  values_content: string
 }
 
 const ImprovedAboutPage: React.FC = () => {
@@ -41,23 +33,15 @@ const ImprovedAboutPage: React.FC = () => {
       } else {
         // إعدادات افتراضية
         setSettings({
-          title: 'من نحن',
-          subtitle: 'قصة Juicetry - جوستري',
-          description: 'نحن متخصصون في تقديم أفضل العصائر الطبيعية الطازجة المصنوعة من أجود أنواع الفواكه والخضروات.',
+          hero_title: 'من نحن',
+          hero_subtitle: 'قصة Juicetry - جوستري',
+          hero_description: 'نحن متخصصون في تقديم أفضل العصائر الطبيعية الطازجة المصنوعة من أجود أنواع الفواكه والخضروات.',
           mission_title: 'رسالتنا',
-          mission_text: 'تقديم عصائر طبيعية 100% خالية من المواد الحافظة والسكر المضاف، لنساهم في تحسين صحة عملائنا وتقديم تجربة منعشة ولذيذة.',
+          mission_content: 'تقديم عصائر طبيعية 100% خالية من المواد الحافظة والسكر المضاف.',
           vision_title: 'رؤيتنا',
-          vision_text: 'أن نكون الخيار الأول لمحبي العصائر الطبيعية في المملكة، ونشر ثقافة الغذاء الصحي والطبيعي.',
+          vision_content: 'أن نكون الخيار الأول لمحبي العصائر الطبيعية في المملكة.',
           values_title: 'قيمنا',
-          values_text: 'الجودة، الطبيعية، الصحة، الطعم الأصيل، خدمة العملاء المتميزة، والالتزام بأعلى معايير النظافة والسلامة.',
-          location_name: 'موقع المحل',
-          location_address: 'الرياض، المملكة العربية السعودية',
-          location_url: 'https://maps.google.com',
-          background_color: '#f8fafc',
-          text_color: '#374151',
-          accent_color: '#22c55e',
-          title_color: '#1f2937',
-          is_active: true
+          values_content: 'الجودة، الطبيعية، الصحة، الطعم الأصيل، خدمة العملاء المتميزة.'
         })
       }
     } catch (error) {
@@ -82,7 +66,7 @@ const ImprovedAboutPage: React.FC = () => {
     )
   }
 
-  if (!settings || !settings.is_active) {
+  if (!settings) {
     return (
       <div className="min-h-screen bg-gray-50">
         <SimpleHeader />
@@ -114,10 +98,10 @@ const ImprovedAboutPage: React.FC = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-white">
-              {settings.title}
+              {settings.hero_title}
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl font-medium mb-6 md:mb-8 opacity-90 text-green-100">
-              {settings.subtitle}
+              {settings.hero_subtitle}
             </p>
             <div className="w-16 md:w-24 h-1 bg-white/30 mx-auto rounded-full"></div>
           </div>
@@ -129,7 +113,7 @@ const ImprovedAboutPage: React.FC = () => {
         <div className="max-w-4xl mx-auto mb-16 md:mb-20">
           <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg border border-gray-100">
             <p className="text-base md:text-lg lg:text-xl leading-relaxed text-center text-gray-700">
-              {settings.description}
+              {settings.hero_description}
             </p>
           </div>
         </div>
@@ -147,7 +131,7 @@ const ImprovedAboutPage: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm md:text-base leading-relaxed text-gray-600 text-center">
-              {settings.mission_text}
+              {settings.mission_content}
             </p>
           </div>
 
@@ -162,7 +146,7 @@ const ImprovedAboutPage: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm md:text-base leading-relaxed text-gray-600 text-center">
-              {settings.vision_text}
+              {settings.vision_content}
             </p>
           </div>
 
@@ -177,56 +161,8 @@ const ImprovedAboutPage: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm md:text-base leading-relaxed text-gray-600 text-center">
-              {settings.values_text}
+              {settings.values_content}
             </p>
-          </div>
-        </div>
-
-        {/* موقع المحل - تصميم محسن */}
-        <div className="max-w-4xl mx-auto mb-16 md:mb-20">
-          <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg border border-gray-100">
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <MapPin className="h-10 w-10 md:h-12 md:w-12 text-white" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
-                {settings.location_name}
-              </h2>
-              <p className="text-lg md:text-xl mb-6 text-gray-600">
-                {settings.location_address}
-              </p>
-              
-              {settings.location_url && settings.location_url !== 'https://maps.google.com' && (
-                <a
-                  href={settings.location_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  <MapPin className="h-5 w-5 md:h-6 md:w-6" />
-                  عرض الموقع على الخريطة
-                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                </a>
-              )}
-            </div>
-
-            {/* خريطة تفاعلية للشاشات الكبيرة */}
-            {settings.location_url && settings.location_url !== 'https://maps.google.com' && (
-              <div className="mt-8 hidden md:block">
-                <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
-                  <iframe
-                    src={settings.location_url.includes('embed') ? settings.location_url : `https://maps.google.com/maps/embed?pb=${settings.location_url.split('?')[1]}`}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="موقع المحل"
-                  ></iframe>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
