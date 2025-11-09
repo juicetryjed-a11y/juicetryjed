@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 
 const SimpleHeader: React.FC = () => {
   const location = useLocation()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const isActive = (path: string) => {
     return location.pathname === path
@@ -22,6 +24,7 @@ const SimpleHeader: React.FC = () => {
             </div>
           </Link>
 
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <Link 
               to="/" 
@@ -75,7 +78,8 @@ const SimpleHeader: React.FC = () => {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Desktop Buttons - إخفاء في الموبايل */}
+          <div className="hidden md:flex items-center gap-4">
             <Link 
               to="/contact"
               className="px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
@@ -89,7 +93,45 @@ const SimpleHeader: React.FC = () => {
               الإدارة
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu - فقط المنيو والمقالات */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200 mt-4">
+            <nav className="flex flex-col gap-2">
+              <Link 
+                to="/menu" 
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive('/menu') 
+                    ? 'text-green-600 bg-green-50 font-bold' 
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                }`}
+              >
+                المنيو
+              </Link>
+              <Link 
+                to="/blog" 
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive('/blog') 
+                    ? 'text-green-600 bg-green-50 font-bold' 
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                }`}
+              >
+                المقالات
+              </Link>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )

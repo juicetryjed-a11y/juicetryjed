@@ -17,6 +17,12 @@ const NewHeader: React.FC = () => {
     { id: 5, label: 'تواصل معنا', url: '/contact', icon: Phone },
   ]
 
+  // قائمة الموبايل - فقط المنيو والمقالات
+  const mobileMenuItems = [
+    { id: 2, label: 'المنيو', url: '/menu', icon: Coffee },
+    { id: 3, label: 'المقالات', url: '/blog', icon: BookOpen },
+  ]
+
   // استخدام الألوان من الإعدادات
   const primaryColor = settings?.primary_color || '#22c55e'
   const siteName = settings?.site_name || 'Juicetry'
@@ -96,11 +102,11 @@ const NewHeader: React.FC = () => {
           </button>
         </div>
 
-        {/* قائمة التنقل - Mobile */}
+        {/* قائمة التنقل - Mobile (فقط المنيو والمقالات) */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-200">
             <nav className="flex flex-col gap-2">
-              {menuItems.map((item) => {
+              {mobileMenuItems.map((item) => {
                 const IconComponent = item.icon
                 return (
                   <Link
