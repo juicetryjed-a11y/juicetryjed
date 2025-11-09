@@ -94,7 +94,12 @@ const SiteSettingsManager: React.FC = () => {
       }
 
       if (data && Array.isArray(data) && data.length > 0) {
-        setSettings(data[0])
+        // دمج البيانات من قاعدة البيانات مع القيم الافتراضية
+        setSettings({
+          ...settings, // القيم الافتراضية
+          ...data[0]   // البيانات من قاعدة البيانات
+        })
+        console.log('✅ Settings loaded:', data[0])
       }
     } catch (error) {
       console.error('Error loading site settings:', error)
