@@ -72,25 +72,36 @@ const SEOManagementTab: React.FC = () => {
 
     try {
       setSaving(true)
+      console.log('🔄 محاولة حفظ إعدادات SEO...', settings)
+      
+      const payload = {
+        meta_title: settings.site_title,
+        meta_description: settings.site_description,
+        meta_keywords: settings.site_keywords,
+        og_title: settings.og_title,
+        og_description: settings.og_description,
+        og_image: settings.og_image,
+        twitter_card: settings.twitter_card,
+        twitter_title: settings.twitter_title,
+        twitter_description: settings.twitter_description,
+        updated_at: new Date().toISOString()
+      }
+      
+      console.log('📦 البيانات المرسلة:', payload)
       
       // تحديث الإعدادات في جدول site_settings
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('site_settings')
-        .update({
-          meta_title: settings.site_title,
-          meta_description: settings.site_description,
-          meta_keywords: settings.site_keywords,
-          og_title: settings.og_title,
-          og_description: settings.og_description,
-          og_image: settings.og_image,
-          twitter_card: settings.twitter_card,
-          twitter_title: settings.twitter_title,
-          twitter_description: settings.twitter_description,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', 1) // أو أي id موجود
+        .update(payload)
+        .eq('id', 1)
+        .select()
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ خطأ من Supabase:', error)
+        throw error
+      }
+      
+      console.log('✅ تم حفظ SEO بنجاح:', data)
       
       // تحديث meta tags في الصفحة
       if (typeof document !== 'undefined') {
@@ -112,10 +123,13 @@ const SEOManagementTab: React.FC = () => {
         metaKeywords.setAttribute('content', settings.site_keywords)
       }
       
-      alert('تم حفظ إعدادات SEO بنجاح')
-    } catch (error) {
-      console.error('خطأ في حفظ إعدادات SEO:', error)
-      alert('حدث خطأ في حفظ الإعدادات: ' + error.message)
+      alert('تم حفظ إعدادات SEO بنجاح ✅')
+      
+      // إعادة تحميل الإعدادات
+      await fetchSettings()
+    } catch (error: any) {
+      console.error('❌ خطأ في حفظ إعدادات SEO:', error)
+      alert(`حدث خطأ في حفظ الإعدادات: ${error.message || error}`)
     } finally {
       setSaving(false)
     }

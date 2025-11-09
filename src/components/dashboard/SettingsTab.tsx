@@ -94,15 +94,34 @@ const SettingsTab: React.FC = () => {
   const handleSave = async () => {
     try {
       setSaving(true)
-      const payload = { ...settings, id: settings.id ?? 1 }
-      const { error } = await supabase
+      console.log('🔄 محاولة حفظ الإعدادات...', settings)
+      
+      const payload = { 
+        ...settings, 
+        id: settings.id ?? 1,
+        updated_at: new Date().toISOString()
+      }
+      
+      console.log('📦 البيانات المرسلة:', payload)
+      
+      const { data, error } = await supabase
         .from('site_settings')
         .upsert(payload, { onConflict: 'id' })
-      if (error) throw error
-      alert('تم حفظ الإعدادات بنجاح')
-    } catch (error) {
-      console.error('خطأ في حفظ الإعدادات:', error)
-      alert('حدث خطأ في حفظ الإعدادات')
+        .select()
+      
+      if (error) {
+        console.error('❌ خطأ من Supabase:', error)
+        throw error
+      }
+      
+      console.log('✅ تم الحفظ بنجاح:', data)
+      alert('تم حفظ الإعدادات بنجاح ✅')
+      
+      // إعادة تحميل الإعدادات للتأكد
+      await fetchSettings()
+    } catch (error: any) {
+      console.error('❌ خطأ في حفظ الإعدادات:', error)
+      alert(`حدث خطأ في حفظ الإعدادات: ${error.message || error}`)
     } finally {
       setSaving(false)
     }
