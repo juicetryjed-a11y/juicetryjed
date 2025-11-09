@@ -20,7 +20,7 @@ import UsersManager from './UsersManager'
 import AboutPageManager from './AboutPageManager'
 import DataResetManager from './DataResetManager'
 import ContactPageManager from './ContactPageManager'
-import HomePageManager from './HomePageManager'
+import AdvancedHomePageManager from './AdvancedHomePageManager'
 
 type TabType = 'overview' | 'analytics' | 'products' | 'categories' | 'orders' | 'customers' | 'reviews' | 'blog' | 'settings' | 'header' | 'users' | 'slider' | 'contact' | 'about' | 'home' | 'reset'
 
@@ -527,7 +527,7 @@ const FullDashboard: React.FC = () => {
       case 'settings':
         return <SiteSettingsManager />
       case 'home':
-        return <HomePageManager />
+        return <AdvancedHomePageManager />
       case 'about':
         return <AboutPageManager />
       case 'contact':
