@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SocialMediaLink } from '@/types'
 import { supabase } from '@/lib/supabase'
 import { Facebook, Instagram, Twitter, Youtube, Phone, MapPin, Mail } from 'lucide-react'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   facebook: Facebook,
@@ -11,6 +12,10 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 }
 
 const Footer: React.FC = () => {
+  const { settings } = useSiteSettings()
+  const primaryColor = settings?.primary_color || '#22c55e'
+  const accentColor = settings?.accent_color || '#eab308'
+  
   const [socialLinks, setSocialLinks] = useState<SocialMediaLink[]>([])
   const [siteName, setSiteName] = useState('جوستري')
   const [sitePhone, setSitePhone] = useState('+966 50 123 4567')
@@ -61,7 +66,7 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* معلومات الشركة */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-juicetry-primary">{siteName}</h3>
+            <h3 className="text-xl font-bold mb-4" style={{ color: primaryColor }}>{siteName}</h3>
             <p className="text-gray-300 mb-4">
               أفضل عصائر طبيعية طازجة يومياً. نقدم لك مجموعة متنوعة من العصائر الطازجة المحضرة بأعلى معايير الجودة.
             </p>
@@ -77,7 +82,10 @@ const Footer: React.FC = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-orange-500 transition-colors"
+                      className="text-gray-400 transition-colors"
+                      style={{ color: '#9ca3af' }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
                     >
                       <Icon className="h-6 w-6" />
                     </a>
@@ -90,10 +98,46 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">روابط سريعة</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-orange-500 transition-colors">الرئيسية</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-orange-500 transition-colors">قائمة العصائر</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-orange-500 transition-colors">من نحن</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-orange-500 transition-colors">تواصل معنا</a></li>
+              <li>
+                <a 
+                  href="/" 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  الرئيسية
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/menu" 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  قائمة العصائر
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/about" 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  من نحن
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/contact" 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  تواصل معنا
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -102,15 +146,29 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-4">تواصل معنا</h4>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-orange-500" />
-                <a href={`tel:${sitePhone.replace(/\s+/g,'')}`} className="text-gray-300 hover:text-orange-400 transition-colors">{sitePhone}</a>
+                <Phone className="h-5 w-5" style={{ color: accentColor }} />
+                <a 
+                  href={`tel:${sitePhone.replace(/\s+/g,'')}`} 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  {sitePhone}
+                </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-orange-500" />
-                <a href={`mailto:${siteEmail}`} className="text-gray-300 hover:text-orange-400 transition-colors">{siteEmail}</a>
+                <Mail className="h-5 w-5" style={{ color: accentColor }} />
+                <a 
+                  href={`mailto:${siteEmail}`} 
+                  className="text-gray-300 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
+                >
+                  {siteEmail}
+                </a>
               </div>
               <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-orange-500" />
+                <MapPin className="h-5 w-5" style={{ color: accentColor }} />
                 <span className="text-gray-300">{siteAddress}</span>
               </div>
             </div>
