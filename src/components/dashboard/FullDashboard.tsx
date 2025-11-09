@@ -19,8 +19,10 @@ import HeaderSettingsManager from './HeaderSettingsManager'
 import UsersManager from './UsersManager'
 import AboutPageManager from './AboutPageManager'
 import DataResetManager from './DataResetManager'
+import ContactPageManager from './ContactPageManager'
+import HomePageManager from './HomePageManager'
 
-type TabType = 'overview' | 'analytics' | 'products' | 'categories' | 'orders' | 'customers' | 'reviews' | 'blog' | 'settings' | 'header' | 'users' | 'slider' | 'contact' | 'about' | 'reset'
+type TabType = 'overview' | 'analytics' | 'products' | 'categories' | 'orders' | 'customers' | 'reviews' | 'blog' | 'settings' | 'header' | 'users' | 'slider' | 'contact' | 'about' | 'home' | 'reset'
 
 interface Product {
   id: number
@@ -277,10 +279,11 @@ const FullDashboard: React.FC = () => {
     { id: 'reviews' as TabType, label: 'آراء العملاء', icon: Star },
     { id: 'blog' as TabType, label: 'المقالات', icon: FileText },
     { id: 'settings' as TabType, label: 'إعدادات الموقع', icon: Settings },
+    { id: 'home' as TabType, label: 'الصفحة الرئيسية', icon: Coffee },
+    { id: 'about' as TabType, label: 'صفحة من نحن', icon: UserCircle },
+    { id: 'contact' as TabType, label: 'صفحة التواصل', icon: Mail },
     { id: 'header' as TabType, label: 'إعدادات الهيدر', icon: Layout },
     { id: 'slider' as TabType, label: 'إعدادات السلايدر', icon: Sliders },
-    { id: 'contact' as TabType, label: 'صفحة التواصل', icon: Mail },
-    { id: 'about' as TabType, label: 'صفحة من نحن', icon: UserCircle },
     { id: 'reset' as TabType, label: 'مسح البيانات', icon: Trash2 },
   ]
 
@@ -523,12 +526,16 @@ const FullDashboard: React.FC = () => {
         return <SimpleBlogManager />
       case 'settings':
         return <SiteSettingsManager />
+      case 'home':
+        return <HomePageManager />
+      case 'about':
+        return <AboutPageManager />
+      case 'contact':
+        return <ContactPageManager />
       case 'header':
         return <HeaderSettingsManager />
       case 'users':
         return <UsersManager />
-      case 'about':
-        return <AboutPageManager />
       case 'reset':
         return <DataResetManager />
       default:
