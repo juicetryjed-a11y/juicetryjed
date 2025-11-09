@@ -5,14 +5,34 @@ import { Save, Mail, Phone, MapPin, Globe, Settings as SettingsIcon } from 'luci
 interface SiteSettings {
   id?: number
   site_name: string
+  site_description?: string
   site_email: string
   site_phone: string
   site_address: string
   site_url: string
+  site_logo?: string
+  site_favicon?: string
+  primary_color?: string
+  secondary_color?: string
+  accent_color?: string
+  contact_phone?: string
+  contact_email?: string
+  contact_address?: string
+  working_hours?: string
+  whatsapp_number?: string
+  google_maps_url?: string
   social_facebook?: string
   social_instagram?: string
   social_twitter?: string
   social_youtube?: string
+  facebook_url?: string
+  twitter_url?: string
+  instagram_url?: string
+  youtube_url?: string
+  meta_title?: string
+  meta_description?: string
+  meta_keywords?: string
+  analytics_code?: string
 }
 
 const SettingsTab: React.FC = () => {
@@ -41,14 +61,27 @@ const SettingsTab: React.FC = () => {
         setSettings({
           id: data.id,
           site_name: data.site_name || 'جوستري',
-          site_email: data.site_email || 'info@joustry.com',
-          site_phone: data.site_phone || '+966 50 123 4567',
-          site_address: data.site_address || 'الرياض، المملكة العربية السعودية',
+          site_description: data.site_description || '',
+          site_email: data.site_email || data.contact_email || 'info@joustry.com',
+          site_phone: data.site_phone || data.contact_phone || '+966 50 123 4567',
+          site_address: data.site_address || data.contact_address || 'الرياض، المملكة العربية السعودية',
           site_url: data.site_url || 'https://joustry.com',
-          social_facebook: data.social_facebook || '',
-          social_instagram: data.social_instagram || '',
-          social_twitter: data.social_twitter || '',
-          social_youtube: data.social_youtube || '',
+          site_logo: data.site_logo || '',
+          site_favicon: data.site_favicon || '',
+          primary_color: data.primary_color || '#22c55e',
+          secondary_color: data.secondary_color || '#84cc16',
+          accent_color: data.accent_color || '#eab308',
+          working_hours: data.working_hours || '',
+          whatsapp_number: data.whatsapp_number || '',
+          google_maps_url: data.google_maps_url || '',
+          social_facebook: data.social_facebook || data.facebook_url || '',
+          social_instagram: data.social_instagram || data.instagram_url || '',
+          social_twitter: data.social_twitter || data.twitter_url || '',
+          social_youtube: data.social_youtube || data.youtube_url || '',
+          meta_title: data.meta_title || '',
+          meta_description: data.meta_description || '',
+          meta_keywords: data.meta_keywords || '',
+          analytics_code: data.analytics_code || '',
         })
       }
       setLoading(false)
@@ -127,6 +160,79 @@ const SettingsTab: React.FC = () => {
                   onChange={(e) => setSettings({ ...settings, site_url: e.target.value })}
                   className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
                   placeholder="https://joustry.com"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* إعدادات الألوان */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <SettingsIcon className="h-6 w-6 text-orange-500" />
+            <h3 className="text-xl font-bold text-gray-900">ألوان الموقع</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                اللون الأساسي
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={settings.primary_color || '#22c55e'}
+                  onChange={(e) => setSettings({ ...settings, primary_color: e.target.value })}
+                  className="h-10 w-20 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={settings.primary_color || '#22c55e'}
+                  onChange={(e) => setSettings({ ...settings, primary_color: e.target.value })}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="#22c55e"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                اللون الثانوي
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={settings.secondary_color || '#84cc16'}
+                  onChange={(e) => setSettings({ ...settings, secondary_color: e.target.value })}
+                  className="h-10 w-20 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={settings.secondary_color || '#84cc16'}
+                  onChange={(e) => setSettings({ ...settings, secondary_color: e.target.value })}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="#84cc16"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                لون التمييز
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={settings.accent_color || '#eab308'}
+                  onChange={(e) => setSettings({ ...settings, accent_color: e.target.value })}
+                  className="h-10 w-20 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={settings.accent_color || '#eab308'}
+                  onChange={(e) => setSettings({ ...settings, accent_color: e.target.value })}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="#eab308"
                 />
               </div>
             </div>

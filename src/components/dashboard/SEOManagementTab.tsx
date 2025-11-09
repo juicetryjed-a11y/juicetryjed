@@ -24,14 +24,26 @@ const SEOManagementTab: React.FC = () => {
 
   const fetchSettings = async () => {
     try {
+      // جلب الإعدادات من جدول site_settings
       const { data } = await supabase
-        .from('seo_settings')
+        .from('site_settings')
         .select('*')
         .single()
 
       if (data) {
-        setSettings(data)
+        setSettings({
+          site_title: data.meta_title || 'Juicetry - جوستري | أفضل عصائر طبيعية طازجة',
+          site_description: data.meta_description || 'استمتع بأفضل العصائر الطبيعية الطازجة المحضرة يومياً بأجود المكونات',
+          site_keywords: data.meta_keywords || 'عصائر, عصير طبيعي, عصير طازج, Juicetry, جوستري',
+          og_title: data.og_title || 'Juicetry - جوستري',
+          og_description: data.og_description || 'أفضل عصائر طبيعية طازجة',
+          og_image: data.og_image || '',
+          twitter_card: data.twitter_card || 'summary_large_image',
+          twitter_title: data.twitter_title || '',
+          twitter_description: data.twitter_description || '',
+        })
       } else {
+        // قيم افتراضية إذا لم توجد بيانات
         setSettings({
           site_title: 'Juicetry - جوستري | أفضل عصائر طبيعية طازجة',
           site_description: 'استمتع بأفضل العصائر الطبيعية الطازجة المحضرة يومياً بأجود المكونات',
@@ -43,6 +55,15 @@ const SEOManagementTab: React.FC = () => {
       }
     } catch (error) {
       console.error('خطأ في جلب إعدادات SEO:', error)
+      // في حالة الخطأ، استخدم القيم الافتراضية
+      setSettings({
+        site_title: 'Juicetry - جوستري | أفضل عصائر طبيعية طازجة',
+        site_description: 'استمتع بأفضل العصائر الطبيعية الطازجة المحضرة يومياً بأجود المكونات',
+        site_keywords: 'عصائر, عصير طبيعي, عصير طازج, Juicetry, جوستري',
+        og_title: 'Juicetry - جوستري',
+        og_description: 'أفضل عصائر طبيعية طازجة',
+        twitter_card: 'summary_large_image',
+      })
     }
   }
 
@@ -51,29 +72,50 @@ const SEOManagementTab: React.FC = () => {
 
     try {
       setSaving(true)
+      
+      // تحديث الإعدادات في جدول site_settings
       const { error } = await supabase
-        .from('seo_settings')
-        .upsert(settings, { onConflict: 'id' })
+        .from('site_settings')
+        .update({
+          meta_title: settings.site_title,
+          meta_description: settings.site_description,
+          meta_keywords: settings.site_keywords,
+          og_title: settings.og_title,
+          og_description: settings.og_description,
+          og_image: settings.og_image,
+          twitter_card: settings.twitter_card,
+          twitter_title: settings.twitter_title,
+          twitter_description: settings.twitter_description,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', 1) // أو أي id موجود
 
       if (error) throw error
       
       // تحديث meta tags في الصفحة
       if (typeof document !== 'undefined') {
         document.title = settings.site_title
-        const metaDescription = document.querySelector('meta[name="description"]')
-        if (metaDescription) {
-          metaDescription.setAttribute('content', settings.site_description)
+        let metaDescription = document.querySelector('meta[name="description"]')
+        if (!metaDescription) {
+          metaDescription = document.createElement('meta')
+          metaDescription.setAttribute('name', 'description')
+          document.head.appendChild(metaDescription)
         }
-        const metaKeywords = document.querySelector('meta[name="keywords"]')
-        if (metaKeywords) {
-          metaKeywords.setAttribute('content', settings.site_keywords)
+        metaDescription.setAttribute('content', settings.site_description)
+        
+        let metaKeywords = document.querySelector('meta[name="keywords"]')
+        if (!metaKeywords) {
+          metaKeywords = document.createElement('meta')
+          metaKeywords.setAttribute('name', 'keywords')
+          document.head.appendChild(metaKeywords)
         }
+        metaKeywords.setAttribute('content', settings.site_keywords)
       }
       
       alert('تم حفظ إعدادات SEO بنجاح')
     } catch (error) {
       console.error('خطأ في حفظ إعدادات SEO:', error)
-      alert('حدث خطأ في حفظ الإعدادات')
+      alert('حدث خطأ في حفظ الإعدادات: ' + error.message)
     } finally {
       setSaving(false)
     }
