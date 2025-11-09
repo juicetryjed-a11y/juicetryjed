@@ -1,8 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Coffee, Leaf, Star, ArrowLeft } from 'lucide-react'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
 
 const FastHero: React.FC = () => {
+  const { settings } = useSiteSettings()
+  const primaryColor = settings?.primary_color || '#22c55e'
+  const secondaryColor = settings?.secondary_color || '#84cc16'
+  const accentColor = settings?.accent_color || '#eab308'
+  
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 flex items-center justify-center overflow-hidden">
       {/* Background Elements */}
@@ -90,21 +96,21 @@ const FastHero: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-1">500+</div>
+            <div className="text-3xl font-bold mb-1" style={{ color: primaryColor }}>500+</div>
             <div className="text-sm text-gray-600">عميل سعيد</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-lime-600 mb-1">25+</div>
+            <div className="text-3xl font-bold mb-1" style={{ color: secondaryColor }}>25+</div>
             <div className="text-sm text-gray-600">نوع عصير</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-yellow-600 mb-1">100%</div>
+            <div className="text-3xl font-bold mb-1" style={{ color: accentColor }}>100%</div>
             <div className="text-sm text-gray-600">طبيعي</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-600 mb-1">24/7</div>
+            <div className="text-3xl font-bold mb-1" style={{ color: primaryColor }}>24/7</div>
             <div className="text-sm text-gray-600">خدمة</div>
           </div>
         </div>
