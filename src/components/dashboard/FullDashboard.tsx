@@ -21,8 +21,9 @@ import AboutPageManager from './AboutPageManager'
 import DataResetManager from './DataResetManager'
 import ContactPageManager from './ContactPageManager'
 import AdvancedHomePageManager from './AdvancedHomePageManager'
+import FooterManager from './FooterManager'
 
-type TabType = 'overview' | 'analytics' | 'products' | 'categories' | 'orders' | 'customers' | 'reviews' | 'blog' | 'settings' | 'header' | 'users' | 'slider' | 'contact' | 'about' | 'home' | 'reset'
+type TabType = 'overview' | 'analytics' | 'products' | 'categories' | 'orders' | 'customers' | 'reviews' | 'blog' | 'settings' | 'header' | 'footer' | 'users' | 'slider' | 'contact' | 'about' | 'home' | 'reset'
 
 interface Product {
   id: number
@@ -283,6 +284,7 @@ const FullDashboard: React.FC = () => {
     { id: 'about' as TabType, label: 'صفحة من نحن', icon: UserCircle },
     { id: 'contact' as TabType, label: 'صفحة التواصل', icon: Mail },
     { id: 'header' as TabType, label: 'إعدادات الهيدر', icon: Layout },
+    { id: 'footer' as TabType, label: 'إعدادات الفوتر', icon: Layout },
     { id: 'slider' as TabType, label: 'إعدادات السلايدر', icon: Sliders },
     { id: 'reset' as TabType, label: 'مسح البيانات', icon: Trash2 },
   ]
@@ -534,6 +536,8 @@ const FullDashboard: React.FC = () => {
         return <ContactPageManager />
       case 'header':
         return <HeaderSettingsManager />
+      case 'footer':
+        return <FooterManager />
       case 'users':
         return <UsersManager />
       case 'reset':
