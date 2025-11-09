@@ -13,6 +13,7 @@ import FullDashboard from '@/components/dashboard/FullDashboard'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { dataService } from '@/lib/dataService'
 import { applyThemeColors } from '@/hooks/useTheme'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -35,6 +36,9 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 function App() {
   console.log('App component rendering...')
+  
+  // تحميل إعدادات الموقع
+  const { settings: siteSettings, loading: settingsLoading } = useSiteSettings()
   
   // تحميل وتطبيق الألوان من localStorage أو قاعدة البيانات
   useEffect(() => {
@@ -72,6 +76,24 @@ function App() {
     
     loadThemeColors()
   }, [])
+  
+  // تطبيق الإعدادات عند تحميلها
+  useEffect(() => {
+    if (siteSettings) {
+      console.log('🎯 تطبيق إعدادات الموقع:', siteSettings)
+      
+      // تطبيق الألوان
+      if (siteSettings.primary_color || siteSettings.secondary_color || siteSettings.accent_color) {
+        const colors = {
+          primary: siteSettings.primary_color || '#22c55e',
+          secondary: siteSettings.secondary_color || '#84cc16',
+          accent: siteSettings.accent_color || '#eab308'
+        }
+        applyThemeColors(colors)
+        localStorage.setItem('theme_colors', JSON.stringify(colors))
+      }
+    }
+  }, [siteSettings])
   
   return (
     <AuthProvider>
