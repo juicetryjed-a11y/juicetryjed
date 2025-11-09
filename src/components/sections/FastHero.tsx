@@ -2,12 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Coffee, Leaf, Star, ArrowLeft } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
+import { useHomePageSettings } from '@/hooks/useHomePageSettings'
 
 const FastHero: React.FC = () => {
   const { settings } = useSiteSettings()
+  const { settings: homeSettings, loading } = useHomePageSettings()
   const primaryColor = settings?.primary_color || '#22c55e'
   const secondaryColor = settings?.secondary_color || '#84cc16'
   const accentColor = settings?.accent_color || '#eab308'
+  
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">جاري التحميل...</div>
+  }
   
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 flex items-center justify-center overflow-hidden">
@@ -21,32 +27,59 @@ const FastHero: React.FC = () => {
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Logo */}
         <div className="mb-8">
-          <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
-            <div className="flex items-center gap-1">
-              <Coffee className="h-8 w-8 text-white" />
-              <Leaf className="h-6 w-6 text-white" />
+          {homeSettings?.logo_url ? (
+            <img 
+              src={homeSettings.logo_url} 
+              alt="Logo" 
+              style={{
+                width: `${homeSettings.logo_width || 120}px`,
+                height: `${homeSettings.logo_height || 120}px`
+              }}
+              className="mx-auto mb-4 object-contain"
+            />
+          ) : (
+            <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+              <div className="flex items-center gap-1">
+                <Coffee className="h-8 w-8 text-white" />
+                <Leaf className="h-6 w-6 text-white" />
+              </div>
             </div>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-green-700 to-lime-600 bg-clip-text text-transparent mb-4">
-            Juicetry
+          )}
+          <h1 
+            className="font-bold mb-4"
+            style={{
+              fontSize: `${homeSettings?.hero_title_font_size || 48}px`,
+              fontWeight: homeSettings?.hero_title_font_weight || 700,
+              color: homeSettings?.hero_title_color || '#166534'
+            }}
+          >
+            {homeSettings?.hero_title || 'Juicetry - جوستري'}
           </h1>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            جوستري
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-600 font-medium">
-            محل العصائر الطبيعية الطازجة
+          <p 
+            className="font-medium"
+            style={{
+              fontSize: `${homeSettings?.hero_subtitle_font_size || 24}px`,
+              fontWeight: homeSettings?.hero_subtitle_font_weight || 500,
+              color: homeSettings?.hero_subtitle_color || '#059669'
+            }}
+          >
+            {homeSettings?.hero_subtitle || 'محل العصائر الطبيعية الطازجة'}
           </p>
         </div>
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto mb-12">
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            🍃 حيث الطبيعة تلتقي بالطعم الأصيل
-          </h3>
-          <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-            استمتع بأفضل العصائر الطبيعية المحضرة من أجود الفواكه والخضروات الطازجة. 
-            نقدم لك تجربة فريدة من النكهات الطبيعية الصحية والمنعشة.
-          </p>
+          {homeSettings?.hero_description && (
+            <p 
+              className="mb-8 leading-relaxed"
+              style={{
+                fontSize: `${homeSettings?.hero_description_font_size || 18}px`,
+                color: homeSettings?.hero_description_color || '#374151'
+              }}
+            >
+              {homeSettings.hero_description}
+            </p>
+          )}
 
           {/* Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -78,11 +111,16 @@ const FastHero: React.FC = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              to="/contact"
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+              to={homeSettings?.hero_cta_link || '/menu'}
+              className="px-8 py-4 rounded-xl font-bold hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+              style={{
+                backgroundColor: homeSettings?.cta_button_bg_color || '#22c55e',
+                color: homeSettings?.cta_button_text_color || '#ffffff',
+                fontSize: `${homeSettings?.cta_button_font_size || 18}px`
+              }}
             >
               <Coffee className="h-5 w-5" />
-              اطلب الآن
+              {homeSettings?.hero_cta_text || 'اطلب الآن'}
             </Link>
             
             <Link 
@@ -96,24 +134,78 @@ const FastHero: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1" style={{ color: primaryColor }}>500+</div>
-            <div className="text-sm text-gray-600">عميل سعيد</div>
+        {homeSettings?.show_stats && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div 
+                className="font-bold mb-1" 
+                style={{ 
+                  fontSize: `${homeSettings?.stats_number_font_size || 36}px`,
+                  color: homeSettings?.stats_number_color || primaryColor 
+                }}
+              >
+                {homeSettings?.stat_1_number || '500+'}
+              </div>
+              <div 
+                className="text-sm"
+                style={{ color: homeSettings?.stats_label_color || '#6b7280' }}
+              >
+                {homeSettings?.stat_1_label || 'عميل سعيد'}
+              </div>
+            </div>
+            <div className="text-center">
+              <div 
+                className="font-bold mb-1" 
+                style={{ 
+                  fontSize: `${homeSettings?.stats_number_font_size || 36}px`,
+                  color: homeSettings?.stats_number_color || secondaryColor 
+                }}
+              >
+                {homeSettings?.stat_2_number || '25+'}
+              </div>
+              <div 
+                className="text-sm"
+                style={{ color: homeSettings?.stats_label_color || '#6b7280' }}
+              >
+                {homeSettings?.stat_2_label || 'نوع عصير'}
+              </div>
+            </div>
+            <div className="text-center">
+              <div 
+                className="font-bold mb-1" 
+                style={{ 
+                  fontSize: `${homeSettings?.stats_number_font_size || 36}px`,
+                  color: homeSettings?.stats_number_color || accentColor 
+                }}
+              >
+                {homeSettings?.stat_3_number || '100%'}
+              </div>
+              <div 
+                className="text-sm"
+                style={{ color: homeSettings?.stats_label_color || '#6b7280' }}
+              >
+                {homeSettings?.stat_3_label || 'طبيعي'}
+              </div>
+            </div>
+            <div className="text-center">
+              <div 
+                className="font-bold mb-1" 
+                style={{ 
+                  fontSize: `${homeSettings?.stats_number_font_size || 36}px`,
+                  color: homeSettings?.stats_number_color || primaryColor 
+                }}
+              >
+                {homeSettings?.stat_4_number || '24/7'}
+              </div>
+              <div 
+                className="text-sm"
+                style={{ color: homeSettings?.stats_label_color || '#6b7280' }}
+              >
+                {homeSettings?.stat_4_label || 'خدمة'}
+              </div>
+            </div>
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1" style={{ color: secondaryColor }}>25+</div>
-            <div className="text-sm text-gray-600">نوع عصير</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1" style={{ color: accentColor }}>100%</div>
-            <div className="text-sm text-gray-600">طبيعي</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1" style={{ color: primaryColor }}>24/7</div>
-            <div className="text-sm text-gray-600">خدمة</div>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   )
