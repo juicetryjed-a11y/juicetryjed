@@ -3,6 +3,7 @@ import { Coffee, Leaf, Star, Plus, Filter, Search, Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dataService } from '@/lib/dataService'
 import { Product, Category } from '@/types'
+import SEO from '@/components/SEO'
 
 // Simple Header Component
 const SimpleHeader: React.FC = () => {
@@ -135,6 +136,12 @@ const FastMenuPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+      <SEO 
+        title="منيو Juicetry - جوستري | عصائر طبيعية طازجة"
+        description="تصفح منيو Juicetry الكامل واختر من بين مجموعة واسعة من العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات. عصائر صحية ولذيذة بأسعار مناسبة"
+        keywords="منيو عصائر, قائمة عصائر, أسعار عصائر, عصائر جوستري, Juicetry menu, عصير برتقال, عصير تفاح, عصير فراولة, عصير مانجو"
+        type="website"
+      />
       <SimpleHeader />
       
       {/* Hero Section */}
