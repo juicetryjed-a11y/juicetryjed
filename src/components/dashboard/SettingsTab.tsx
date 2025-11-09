@@ -149,9 +149,34 @@ const SettingsTab: React.FC = () => {
       setSaving(true)
       console.log('🔄 محاولة حفظ الإعدادات...', settings)
       
-      const payload = { 
-        ...settings, 
+      // إنشاء payload نظيف بدون حقول غير صحيحة
+      const payload = {
         id: settings.id ?? 1,
+        site_name: settings.site_name,
+        site_description: settings.site_description || '',
+        site_email: settings.site_email,
+        site_phone: settings.site_phone,
+        site_address: settings.site_address,
+        site_url: settings.site_url,
+        site_logo: settings.site_logo || null,
+        site_favicon: settings.site_favicon || null,
+        primary_color: settings.primary_color || '#22c55e',
+        secondary_color: settings.secondary_color || '#84cc16',
+        accent_color: settings.accent_color || '#eab308',
+        contact_phone: settings.site_phone,
+        contact_email: settings.site_email,
+        contact_address: settings.site_address,
+        working_hours: settings.working_hours || '',
+        whatsapp_number: settings.whatsapp_number || '',
+        google_maps_url: settings.google_maps_url || '',
+        facebook_url: settings.social_facebook || '',
+        twitter_url: settings.social_twitter || '',
+        instagram_url: settings.social_instagram || '',
+        youtube_url: settings.social_youtube || '',
+        meta_title: settings.meta_title || '',
+        meta_description: settings.meta_description || '',
+        meta_keywords: settings.meta_keywords || '',
+        analytics_code: settings.analytics_code || '',
         updated_at: new Date().toISOString()
       }
       
