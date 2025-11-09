@@ -164,7 +164,7 @@ const FastMenuPage: React.FC = () => {
 
       {/* Products Grid */}
       <section className="pb-20">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
@@ -177,47 +177,48 @@ const FastMenuPage: React.FC = () => {
               <p className="text-gray-600">جرب البحث بكلمات أخرى أو اختر تصنيف مختلف</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
               {filteredProducts.map((product) => (
-                <div key={product.id} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden">
-                  {/* Product Image */}
-                  <div className="h-40 bg-gradient-to-br from-green-50 to-lime-50 flex items-center justify-center overflow-hidden">
+                <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden">
+                  {/* Product Image - محسّن للموبايل */}
+                  <div className="relative aspect-square bg-gradient-to-br from-green-50 to-lime-50 flex items-center justify-center overflow-hidden">
                     {product.image_url ? (
                       <img 
                         src={product.image_url} 
                         alt={product.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain p-2 sm:p-3"
                       />
                     ) : (
-                      <div className="text-5xl">🍹</div>
+                      <div className="text-4xl sm:text-5xl">🍹</div>
                     )}
                   </div>
 
-                  {/* Product Info */}
-                  <div className="p-5">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-gray-900 line-clamp-1">{product.name}</h3>
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                        <span className="text-sm font-semibold text-gray-700">4.8</span>
+                  {/* Product Info - محسّن للموبايل */}
+                  <div className="p-3 sm:p-4">
+                    <div className="flex items-start justify-between mb-1 sm:mb-2">
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-1 flex-1">{product.name}</h3>
+                      <div className="flex items-center gap-0.5 sm:gap-1 ml-1">
+                        <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 fill-current" />
+                        <span className="text-xs sm:text-sm font-semibold text-gray-700">4.8</span>
                       </div>
                     </div>
 
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                    <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2 hidden sm:block">{product.description}</p>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <span className="text-xl font-bold text-green-600">{product.price}</span>
-                      <span className="text-gray-600 text-sm">ريال</span>
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+                      <div className="flex items-center gap-1 w-full sm:w-auto justify-center sm:justify-start">
+                        <span className="text-lg sm:text-xl font-bold text-green-600">{product.price}</span>
+                        <span className="text-gray-600 text-xs sm:text-sm">ريال</span>
+                      </div>
+
+                      <button className="w-full sm:w-auto flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-xs sm:text-sm">
+                        <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <span className="hidden sm:inline">إضافة</span>
+                        <span className="sm:hidden">+</span>
+                      </button>
                     </div>
-
-                    <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-sm">
-                      <Plus className="h-4 w-4" />
-                      إضافة
-                    </button>
                   </div>
                 </div>
-              </div>
               ))}
             </div>
           )}
