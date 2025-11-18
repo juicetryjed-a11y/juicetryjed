@@ -11,6 +11,8 @@ interface SEOProps {
   author?: string
   publishedTime?: string
   modifiedTime?: string
+  robots?: string
+  googlebot?: string
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -23,6 +25,8 @@ const SEO: React.FC<SEOProps> = ({
   author = 'Juicetry',
   publishedTime,
   modifiedTime,
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  googlebot = 'index, follow',
 }) => {
   const location = useLocation()
   const currentUrl = url || `https://juicetry.com${location.pathname}`
@@ -67,8 +71,8 @@ const SEO: React.FC<SEOProps> = ({
     }
 
     // Robots
-    updateMetaTag('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
-    updateMetaTag('googlebot', 'index, follow')
+    updateMetaTag('robots', robots)
+    updateMetaTag('googlebot', googlebot)
 
     // Mobile
     updateMetaTag('mobile-web-app-capable', 'yes')
@@ -87,7 +91,7 @@ const SEO: React.FC<SEOProps> = ({
     updateLinkTag('alternate', currentUrl, 'ar')
     updateLinkTag('alternate', currentUrl, 'en')
 
-  }, [title, description, keywords, image, type, currentUrl, author, publishedTime, modifiedTime])
+  }, [title, description, keywords, image, type, currentUrl, author, publishedTime, modifiedTime, robots, googlebot])
 
   return null
 }

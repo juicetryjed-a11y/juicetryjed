@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Coffee, Leaf, Star, Plus, Filter, Search, Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dataService } from '@/lib/dataService'
@@ -96,6 +96,36 @@ const FastMenuPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
+  const menuStructuredData = useMemo(() => {
+    const sections = categories.map(category => ({
+      '@type': 'MenuSection',
+      name: category.name,
+      hasMenuItem: products
+        .filter(product => product.category_id === category.id)
+        .slice(0, 10)
+        .map(product => ({
+          '@type': 'MenuItem',
+          name: product.name,
+          description: product.description,
+          offers: product.price ? {
+            '@type': 'Offer',
+            price: product.price,
+            priceCurrency: 'SAR',
+            availability: 'https://schema.org/InStock'
+          } : undefined
+        }))
+    }))
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Menu',
+      name: 'منيو Juicetry',
+      description: 'قائمة Juicetry الكاملة للعصائر الطبيعية الطازجة في السعودية',
+      url: 'https://juicetry.com/menu',
+      hasMenuSection: sections
+    }
+  }, [categories, products])
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -141,6 +171,11 @@ const FastMenuPage: React.FC = () => {
         description="تصفح منيو Juicetry الكامل واختر من بين مجموعة واسعة من العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات. عصائر صحية ولذيذة بأسعار مناسبة"
         keywords="منيو عصائر, قائمة عصائر, أسعار عصائر, عصائر جوستري, Juicetry menu, عصير برتقال, عصير تفاح, عصير فراولة, عصير مانجو"
         type="website"
+        url="https://juicetry.com/menu"
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(menuStructuredData) }} 
       />
       <SimpleHeader />
       
