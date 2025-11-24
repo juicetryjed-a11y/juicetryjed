@@ -42,36 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchUserProfile = async (userId: string) => {
     try {
-      // First check if user exists in users table
-      let { data: userData, error: userError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', userId)
-        .single()
-
-      if (userError && userError.code === 'PGRST116') {
-        // User doesn't exist, create them
-        const { data: newUser, error: createError } = await supabase
-          .from('users')
-          .insert([
-            { 
-              id: userId, 
-              email: user?.email || '',
-              role: 'customer'
-            }
-          ])
-          .select()
-          .single()
-
-        if (createError) {
-          console.error('Error creating user:', createError)
-          setLoading(false)
-          return
-        }
-        userData = newUser
-      }
-
-      // Get profile data
+      // Get profile data from profiles table
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
@@ -79,25 +50,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .single()
 
       if (profileError && profileError.code === 'PGRST116') {
-        // Profile doesn't exist, create it
+        // Profile doesn't exist, create it with default values
+        // We need to get the user email from the session or user object if available
+        const currentUser = user || (await supabase.auth.getUser()).data.user;
+
         const { data: newProfile, error: createProfileError } = await supabase
           .from('profiles')
-          .insert([{ id: userId }])
+          .insert([{
+            id: userId,
+            email: currentUser?.email || '',
+            role: 'customer',
+            is_active: true
+          }])
           .select()
           .single()
 
         if (createProfileError) {
           console.error('Error creating profile:', createProfileError)
+          setLoading(false)
+          return
         }
-        
+
         setProfile({
-          id: userId,
-          role: userData?.role || 'customer'
+          ...newProfile,
+          role: newProfile.role || 'customer'
         })
-      } else {
+      } else if (!profileError && profileData) {
         setProfile({
           ...profileData,
-          role: userData?.role || 'customer'
+          role: profileData.role || 'customer'
         })
       }
     } catch (error) {
@@ -124,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       async (event, session) => {
         setSession(session)
         setUser(session?.user ?? null)
-        
+
         if (session?.user) {
           await fetchUserProfile(session.user.id)
         } else {
@@ -143,11 +124,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       email,
       password,
     })
-    
+
     if (error) {
       setLoading(false)
     }
-    
+
     return { error }
   }
 
@@ -159,34 +140,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
 
     if (!error && data.user) {
-      // Create user record
-      await supabase
-        .from('users')
+      // Create profile record directly (no users table)
+      const { error: profileError } = await supabase
+        .from('profiles')
         .insert([
-          { 
-            id: data.user.id, 
+          {
+            id: data.user.id,
             email: email,
-            role: 'customer'
+            role: 'customer',
+            is_active: true,
+            ...userData
           }
         ])
 
-      // Create profile if userData provided
-      if (userData) {
-        await supabase
-          .from('profiles')
-          .insert([
-            {
-              id: data.user.id,
-              ...userData
-            }
-          ])
+      if (profileError) {
+        console.error('Error creating profile during signup:', profileError)
       }
     }
-    
+
     if (error) {
       setLoading(false)
     }
-    
+
     return { error }
   }
 

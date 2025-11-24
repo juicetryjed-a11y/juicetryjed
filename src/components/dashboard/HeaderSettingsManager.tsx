@@ -77,7 +77,11 @@ const HeaderSettingsManager: React.FC = () => {
       }
 
       if (data) {
-        setSettings(data)
+        // Ensure navigation_items is always an array to prevent map errors
+        setSettings({
+          ...data,
+          navigation_items: Array.isArray(data.navigation_items) ? data.navigation_items : []
+        })
       }
     } catch (error) {
       console.error('Error loading header settings:', error)
@@ -127,12 +131,12 @@ const HeaderSettingsManager: React.FC = () => {
       label: navFormData.label,
       url: navFormData.url,
       is_active: navFormData.is_active,
-      order_index: settings.navigation_items.length + 1
+      order_index: (settings.navigation_items?.length || 0) + 1
     }
 
     setSettings({
       ...settings,
-      navigation_items: [...settings.navigation_items, newItem]
+      navigation_items: [...(settings.navigation_items || []), newItem]
     })
 
     setNavFormData({ label: '', url: '', is_active: true })
@@ -142,11 +146,11 @@ const HeaderSettingsManager: React.FC = () => {
   const updateNavigationItem = () => {
     if (!editingNavItem) return
 
-    const updatedItems = settings.navigation_items.map(item =>
+    const updatedItems = settings.navigation_items?.map(item =>
       item.id === editingNavItem.id
         ? { ...item, label: navFormData.label, url: navFormData.url, is_active: navFormData.is_active }
         : item
-    )
+    ) || []
 
     setSettings({
       ...settings,
@@ -161,7 +165,7 @@ const HeaderSettingsManager: React.FC = () => {
   const deleteNavigationItem = (id: string) => {
     if (!confirm('هل أنت متأكد من حذف هذا العنصر؟')) return
 
-    const updatedItems = settings.navigation_items.filter(item => item.id !== id)
+    const updatedItems = settings.navigation_items?.filter(item => item.id !== id) || []
     setSettings({
       ...settings,
       navigation_items: updatedItems
@@ -169,9 +173,9 @@ const HeaderSettingsManager: React.FC = () => {
   }
 
   const toggleNavigationItem = (id: string) => {
-    const updatedItems = settings.navigation_items.map(item =>
+    const updatedItems = settings.navigation_items?.map(item =>
       item.id === id ? { ...item, is_active: !item.is_active } : item
-    )
+    ) || []
 
     setSettings({
       ...settings,
@@ -214,7 +218,7 @@ const HeaderSettingsManager: React.FC = () => {
             <Layout className="h-5 w-5" />
             إعدادات الشعار
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -229,7 +233,7 @@ const HeaderSettingsManager: React.FC = () => {
                   إظهار الشعار في الهيدر
                 </label>
               </div>
-              
+
               {settings.show_logo && (
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -268,45 +272,50 @@ const HeaderSettingsManager: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {settings.navigation_items.map((item) => (
-              <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => toggleNavigationItem(item.id)}
-                    className={`p-1 rounded ${
-                      item.is_active ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
-                    {item.is_active ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
-                  </button>
-                  <div>
-                    <p className="font-semibold text-gray-900">{item.label}</p>
-                    <p className="text-sm text-gray-600">{item.url}</p>
+            {settings.navigation_items && settings.navigation_items.length > 0 ? (
+              settings.navigation_items.map((item) => (
+                <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => toggleNavigationItem(item.id)}
+                      className={`p-1 rounded ${item.is_active ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
+                        }`}
+                    >
+                      {item.is_active ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                    </button>
+                    <div>
+                      <p className="font-semibold text-gray-900">{item.label}</p>
+                      <p className="text-sm text-gray-600">{item.url}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => openEditModal(item)}
+                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => deleteNavigationItem(item.id)}
+                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => openEditModal(item)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => deleteNavigationItem(item.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                لا توجد عناصر تنقل. أضف عنصراً جديداً للبدء.
               </div>
-            ))}
+            )}
           </div>
         </div>
 
         {/* Header Appearance */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">مظهر الهيدر</h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -394,7 +403,7 @@ const HeaderSettingsManager: React.FC = () => {
         {/* Announcement Bar */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">شريط الإعلانات</h3>
-          
+
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <input

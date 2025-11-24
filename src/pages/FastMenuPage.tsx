@@ -1,93 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Coffee, Leaf, Star, Plus, Filter, Search, Menu, X } from 'lucide-react'
+import { Coffee, Leaf, Star, Plus, Filter, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dataService } from '@/lib/dataService'
 import { Product, Category } from '@/types'
 import SEO from '@/components/SEO'
-
-// Simple Header Component
-const SimpleHeader: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  return (
-    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center">
-              <Coffee className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Juicetry</h1>
-              <p className="text-sm text-gray-600">جوستري</p>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors">الرئيسية</Link>
-            <Link to="/menu" className="text-green-600 font-bold">المنيو</Link>
-            <Link to="/about" className="text-gray-700 hover:text-green-600 font-medium transition-colors">من نحن</Link>
-            <Link to="/blog" className="text-gray-700 hover:text-green-600 font-medium transition-colors">المقالات</Link>
-            <Link to="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors">تواصل معنا</Link>
-          </nav>
-
-          <div className="hidden md:flex items-center gap-4">
-            <Link 
-              to="/admin/login"
-              className="px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-            >
-              الإدارة
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu - المنيو والمقالات ومن نحن واتصل بنا */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 mt-4">
-            <nav className="flex flex-col gap-2">
-              <Link 
-                to="/menu" 
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg font-medium text-green-600 bg-green-50"
-              >
-                المنيو
-              </Link>
-              <Link 
-                to="/blog" 
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors"
-              >
-                المقالات
-              </Link>
-              <Link 
-                to="/about" 
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors"
-              >
-                من نحن
-              </Link>
-              <Link 
-                to="/contact" 
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors"
-              >
-                اتصل بنا
-              </Link>
-            </nav>
-          </div>
-        )}
-      </div>
-    </header>
-  )
-}
+import SimpleHeader from '@/components/layout/SimpleHeader'
+import Footer from '@/components/layout/Footer'
 
 const FastMenuPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
@@ -133,7 +51,7 @@ const FastMenuPage: React.FC = () => {
   const fetchData = async () => {
     try {
       console.log('🔄 FastMenuPage: جاري جلب البيانات من الداتابيز...')
-      
+
       // Fetch categories
       const { data: categoriesData, error: categoriesError } = await dataService.getCategories()
       if (!categoriesError && categoriesData) {
@@ -160,32 +78,34 @@ const FastMenuPage: React.FC = () => {
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === null || product.category_id === selectedCategory
     const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      product.description?.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch
   })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
-      <SEO 
+      <SEO
         title="منيو Juicetry - جوستري | عصائر طبيعية طازجة"
         description="تصفح منيو Juicetry الكامل واختر من بين مجموعة واسعة من العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات. عصائر صحية ولذيذة بأسعار مناسبة"
         keywords="منيو عصائر, قائمة عصائر, أسعار عصائر, عصائر جوستري, Juicetry menu, عصير برتقال, عصير تفاح, عصير فراولة, عصير مانجو"
         type="website"
         url="https://juicetry.com/menu"
       />
-      <script 
-        type="application/ld+json" 
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(menuStructuredData) }} 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(menuStructuredData) }}
       />
+
+      {/* Global Header */}
       <SimpleHeader />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-12 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 right-20 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
           <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
         </div>
-        
+
         <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="mb-8">
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-700 to-lime-600 bg-clip-text text-transparent mb-4">
@@ -223,25 +143,23 @@ const FastMenuPage: React.FC = () => {
               {/* زر الكل */}
               <button
                 onClick={() => setSelectedCategory(null)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                  selectedCategory === null
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === null
                     ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg'
                     : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
-                }`}
+                  }`}
               >
                 <span className="text-lg">🍹</span>
                 جميع المنتجات
               </button>
-              
+
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    selectedCategory === category.id
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === category.id
                       ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg'
                       : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
-                  }`}
+                    }`}
                 >
                   {category.name}
                 </button>
@@ -272,8 +190,8 @@ const FastMenuPage: React.FC = () => {
                   {/* Product Image - حجم ثابت ومتناسق */}
                   <div className="relative w-full h-40 sm:h-48 md:h-56 bg-gradient-to-br from-green-50 to-lime-50 flex items-center justify-center overflow-hidden flex-shrink-0">
                     {product.image_url ? (
-                      <img 
-                        src={product.image_url} 
+                      <img
+                        src={product.image_url}
                         alt={product.name}
                         className="w-full h-full object-cover"
                         style={{ objectFit: 'cover' }}
@@ -326,13 +244,13 @@ const FastMenuPage: React.FC = () => {
             تواصل معنا وسنساعدك في اختيار العصير المثالي
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
+            <Link
               to="/contact"
               className="px-8 py-4 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               تواصل معنا
             </Link>
-            <Link 
+            <Link
               to="/"
               className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-green-200"
             >
@@ -342,52 +260,8 @@ const FastMenuPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <Link to="/" className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center">
-                  <Coffee className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Juicetry - جوستري</h3>
-                  <p className="text-gray-400">محل العصائر الطبيعية</p>
-                </div>
-              </Link>
-              <p className="text-gray-400">
-                نقدم أفضل العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-4">روابط سريعة</h4>
-              <ul className="space-y-2">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">الرئيسية</Link></li>
-                <li><Link to="/menu" className="text-gray-400 hover:text-white transition-colors">المنيو</Link></li>
-                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">من نحن</Link></li>
-                <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">تواصل معنا</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-4">تواصل معنا</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>📞 +966501234567</p>
-                <p>📧 info@juicetry.com</p>
-                <p>📍 الرياض، المملكة العربية السعودية</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
-              © 2024 Juicetry - جوستري. جميع الحقوق محفوظة.
-            </p>
-          </div>
-        </div>
-      </footer>
+      {/* Global Footer */}
+      <Footer />
     </div>
   )
 }

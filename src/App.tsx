@@ -9,11 +9,12 @@ import FastBlogPage from '@/pages/FastBlogPage'
 import BlogPostPage from '@/pages/BlogPostPage'
 import ProductsPage from '@/pages/ProductsPage'
 import AdminLogin from '@/pages/admin/AdminLogin'
-import FullDashboard from '@/components/dashboard/FullDashboard'
+import Dashboard from '@/pages/admin/Dashboard'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { dataService } from '@/lib/dataService'
 import { applyThemeColors } from '@/hooks/useTheme'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
+import TestConnection from '@/pages/TestConnection'
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -36,10 +37,10 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 function App() {
   console.log('App component rendering...')
-  
+
   // تحميل إعدادات الموقع
   const { settings: siteSettings, loading: settingsLoading } = useSiteSettings()
-  
+
   // تحميل وتطبيق الألوان من localStorage أو قاعدة البيانات
   useEffect(() => {
     const loadThemeColors = async () => {
@@ -49,10 +50,9 @@ function App() {
         if (savedColors) {
           const colors = JSON.parse(savedColors)
           applyThemeColors(colors)
-          console.log('🎨 Theme colors applied from localStorage:', colors)
           return
         }
-        
+
         // ثانياً: إذا لم تكن موجودة، اقرأها من قاعدة البيانات
         const { data } = await dataService.getSiteSettings()
         if (data && data.length > 0 && data[0].primary_color) {
@@ -63,25 +63,19 @@ function App() {
             accent: settings.accent_color || '#eab308'
           }
           applyThemeColors(colors)
-          
-          // احفظها في localStorage للمرات القادمة
           localStorage.setItem('theme_colors', JSON.stringify(colors))
-          
-          console.log('🎨 Theme colors applied from database:', colors)
         }
       } catch (error) {
         console.error('Error loading theme colors:', error)
       }
     }
-    
+
     loadThemeColors()
   }, [])
-  
+
   // تطبيق الإعدادات عند تحميلها
   useEffect(() => {
     if (siteSettings) {
-      console.log('🎯 تطبيق إعدادات الموقع:', siteSettings)
-      
       // تطبيق الألوان
       if (siteSettings.primary_color || siteSettings.secondary_color || siteSettings.accent_color) {
         const colors = {
@@ -94,31 +88,36 @@ function App() {
       }
     }
   }, [siteSettings])
-  
+
   return (
     <AuthProvider>
       <Router>
         <Routes>
           {/* الصفحات العامة */}
-          <Route path="/" element={<FastHomePage />} />
+          {/* جعل صفحة المنيو هي الصفحة الرئيسية */}
+          <Route path="/" element={<FastMenuPage />} />
+          <Route path="/home" element={<FastHomePage />} />
           <Route path="/menu" element={<FastMenuPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/about" element={<ImprovedAboutPage />} />
           <Route path="/blog" element={<FastBlogPage />} />
           <Route path="/blog/:id" element={<BlogPostPage />} />
           <Route path="/contact" element={<FastContactPage />} />
-          
+
+          {/* صفحة اختبار الاتصال */}
+          <Route path="/test-db" element={<TestConnection />} />
+
           {/* صفحات الإدارة */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route 
-            path="/admin/dashboard" 
+          <Route
+            path="/admin/dashboard"
             element={
               <ProtectedRoute>
-                <FullDashboard />
+                <Dashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          
+
           {/* إعادة توجيه المسارات غير الموجودة */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

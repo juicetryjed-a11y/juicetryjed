@@ -1,6 +1,7 @@
 import React from 'react'
 import { Coffee, Leaf, Star, Heart, Award, Users, Target, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import Footer from '@/components/layout/Footer'
 
 // Simple Header Component
 const SimpleHeader: React.FC = () => {
@@ -26,7 +27,7 @@ const SimpleHeader: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link 
+            <Link
               to="/admin/login"
               className="px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
             >
@@ -93,7 +94,7 @@ const FastAboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
       <SimpleHeader />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
         <div className="absolute inset-0">
@@ -101,7 +102,7 @@ const FastAboutPage: React.FC = () => {
           <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-yellow-200 rounded-full opacity-10 animate-pulse"></div>
         </div>
-        
+
         <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="mb-8">
             <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
@@ -269,13 +270,13 @@ const FastAboutPage: React.FC = () => {
               اكتشف طعم الطبيعة الحقيقي واستمتع بتجربة فريدة من العصائر الطبيعية
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
+              <Link
                 to="/menu"
                 className="px-8 py-4 bg-white text-green-600 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 تصفح المنيو
               </Link>
-              <Link 
+              <Link
                 to="/contact"
                 className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-white/30"
               >
@@ -286,52 +287,9 @@ const FastAboutPage: React.FC = () => {
         </div>
       </section>
 
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <Link to="/" className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center">
-                  <Coffee className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Juicetry - جوستري</h3>
-                  <p className="text-gray-400">محل العصائر الطبيعية</p>
-                </div>
-              </Link>
-              <p className="text-gray-400">
-                نقدم أفضل العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-4">روابط سريعة</h4>
-              <ul className="space-y-2">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">الرئيسية</Link></li>
-                <li><Link to="/menu" className="text-gray-400 hover:text-white transition-colors">المنيو</Link></li>
-                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">من نحن</Link></li>
-                <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">تواصل معنا</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-4">تواصل معنا</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>📞 +966501234567</p>
-                <p>📧 info@juicetry.com</p>
-                <p>📍 الرياض، المملكة العربية السعودية</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
-              © 2024 Juicetry - جوستري. جميع الحقوق محفوظة.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

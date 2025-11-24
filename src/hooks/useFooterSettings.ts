@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 
-interface FooterSettings {
+export interface FooterSettings {
   company_name: string
   company_description: string
   company_logo?: string
@@ -13,6 +13,8 @@ interface FooterSettings {
   instagram_url?: string
   twitter_url?: string
   youtube_url?: string
+  tiktok_url?: string
+  snapchat_url?: string
   whatsapp_number?: string
   show_quick_links: boolean
   quick_link_1_text: string
