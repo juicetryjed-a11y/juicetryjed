@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Coffee, Leaf, Star, ArrowLeft } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { useHomePageSettings } from '@/hooks/useHomePageSettings'
+import heroLogoImage from '../../pages/logo 0.png'
 
 const FastHero: React.FC = () => {
   const { settings } = useSiteSettings()
@@ -22,16 +23,15 @@ const FastHero: React.FC = () => {
         <div className="absolute top-20 right-20 w-32 h-32 bg-accent rounded-full opacity-20 animate-pulse"></div>
         <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary rounded-full opacity-20 animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal rounded-full opacity-10 animate-pulse"></div>
+        {/* Hero Logo */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img src={heroLogoImage} alt="Juicetry Logo" className="h-32 md:h-48 w-auto object-contain drop-shadow-2xl" />
+        </div>
       </div>
 
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Logo */}
         <div className="mb-8">
-          <img
-            src="/final-logo-01.png"
-            alt="Juicetry Logo"
-            className="h-32 md:h-40 w-auto object-contain mx-auto mb-6 shadow-2xl drop-shadow-lg"
-          />
           <h1 
             className="font-bold mb-4"
             style={{

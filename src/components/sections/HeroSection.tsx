@@ -43,7 +43,11 @@ const HeroSection: React.FC = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center mb-6">
               <div className="relative">
-                <Zap className="h-16 w-16 text-juicetry-dark" />
+                <img
+                  src="/final logo -03.png"
+                  alt="جوستري - Juicetry"
+                  className="h-16 w-auto object-contain"
+                />
                 <div className="absolute inset-0 bg-accent rounded-full blur-xl opacity-50 animate-pulse"></div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Search, ShoppingCart, User } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
-import logoImage from '../../final logo -02.png'
+import logoImage from '../../scripts/logo2.png'
 
 interface NavigationItem {
   id: string
@@ -92,7 +92,7 @@ const SimpleHeader: React.FC = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
-              <img src={logoImage} alt="Logo" className="h-16 w-32 object-contain" />
+              <img src={logoImage} alt="Logo" className="h-12 w-auto object-contain" />
             </Link>
 
             {/* Desktop Navigation */}

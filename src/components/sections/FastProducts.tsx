@@ -72,15 +72,7 @@ const FastProducts: React.FC = () => {
               <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden border border-gray-100">
                 {/* Product Image */}
                 <div className="h-48 bg-gradient-to-br from-secondary-50 to-accent-50 flex items-center justify-center">
-                  {product.image_url ? (
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="text-6xl">🍹</div>
-                  )}
+                  <div className="text-6xl">🍹</div>
                 </div>
 
               {/* Product Info */}

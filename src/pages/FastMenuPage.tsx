@@ -6,6 +6,8 @@ import { Product, Category } from '@/types'
 import SEO from '@/components/SEO'
 import SimpleHeader from '@/components/layout/SimpleHeader'
 import Footer from '@/components/layout/Footer'
+import menuImage from '@/components/sections/منيو.png'
+import heroLogoImage from './logo 0.png'
 
 const FastMenuPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
@@ -99,46 +101,60 @@ const FastMenuPage: React.FC = () => {
       {/* Global Header */}
       <SimpleHeader />
 
-      {/* Hero Section - Same for mobile and desktop */}
+      {/* Hero Section - Hidden on mobile */}
       <section
-        className="min-h-screen relative overflow-hidden"
+        className="hidden sm:block min-h-screen relative overflow-hidden"
         style={{
-          marginTop: '-80px',
-          backgroundImage: "url('/final-logo-01.png')",
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundColor: 'transparent'
+          marginTop: '0px',
+          backgroundColor: '#edd674'
         }}
       >
-        {/* Decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* Decorative elements - positioned behind the logo */}
+        <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
           <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
           <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
           <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
         </div>
+
+        {/* Hero Logo */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img src={heroLogoImage} alt="Juicetry Logo" className="h-32 md:h-40 w-auto object-contain drop-shadow-xl" />
+        </div>
       </section>
 
-      {/* Content Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden" style={{ marginTop: '100px', backgroundColor: '#edd674' }}>
-        <div className="container mx-auto px-6 text-center">
-          <div className="mb-8">
-            <h1
-              className="text-4xl md:text-6xl font-bold mb-4"
-              style={{ color: '#166534' }}
-            >
-              منيو Juicetry
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
-              اكتشف مجموعتنا الواسعة من العصائر الطبيعية الطازجة
-            </p>
+      {/* Menu Image Section - Only on desktop, under hero */}
+      <section className="py-6 bg-[#edd674] -mt-1 hidden md:block">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <img src={menuImage} alt="منيو Juicetry" className="max-w-full h-auto mx-auto" />
+          </div>
+        </div>
+      </section>
+
+      {/* Menu Image Section - Acts as hero on mobile, hidden on desktop */}
+      <section className="flex items-center justify-center min-h-screen md:min-h-0 -mt-1 py-0 md:py-6 relative overflow-hidden md:hidden" style={{ backgroundColor: '#edd674' }}>
+        {/* Decorative elements - positioned behind the menu image */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            {/* Logo Image - Above menu image on mobile */}
+            <img src="final-logo-03.png" alt="Juicetry Logo" className="h-24 md:h-28 w-auto object-contain drop-shadow-xl" />
+
+            {/* Menu Image - Below logo on mobile */}
+            <img src={menuImage} alt="منيو Juicetry" className="max-w-full h-auto mx-auto" />
           </div>
         </div>
       </section>
 
       {/* Filters Section */}
-      <section className="pb-8">
+      <section className="pb-6 md:pb-8 pt-2 md:pt-4">
         <div className="container mx-auto px-6">
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg mb-8">
             {/* Search */}
@@ -190,62 +206,55 @@ const FastMenuPage: React.FC = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="pb-20">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="pb-12 md:pb-20">
+        <div className="container mx-auto px-3 sm:px-6">
           {loading ? (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-secondary"></div>
-              <p className="mt-4 text-gray-600">جاري تحميل المنتجات...</p>
+            <div className="text-center py-8 md:py-12">
+              <div className="inline-block animate-spin rounded-full h-10 w-10 md:h-12 md:w-12 border-b-2 border-secondary"></div>
+              <p className="mt-4 text-gray-600 text-sm md:text-base">جاري تحميل المنتجات...</p>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">لا توجد منتجات</h3>
-              <p className="text-gray-600">جرب البحث بكلمات أخرى أو اختر تصنيف مختلف</p>
+            <div className="text-center py-8 md:py-12">
+              <div className="text-5xl md:text-6xl mb-4">🔍</div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">لا توجد منتجات</h3>
+              <p className="text-gray-600 text-sm md:text-base">جرب البحث بكلمات أخرى أو اختر تصنيف مختلف</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
               {filteredProducts.map((product) => (
-                <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden flex flex-col">
+                <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl md:rounded-2xl shadow-md hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden flex flex-col">
                   {/* Product Image - حجم ثابت ومتناسق */}
-                  <div className="relative w-full h-40 sm:h-48 md:h-56 bg-gradient-to-br from-secondary-50 to-accent-50 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="relative w-full h-36 sm:h-44 md:h-48 bg-gradient-to-br from-secondary-50 to-accent-50 flex items-center justify-center overflow-hidden flex-shrink-0">
                     {product.image_url ? (
                       <img
                         src={product.image_url}
                         alt={product.name}
                         className="w-full h-full object-cover"
-                        style={{ objectFit: 'cover' }}
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&h=300&fit=crop'
+                        }}
                       />
                     ) : (
-                      <div className="text-4xl sm:text-5xl">🍹</div>
+                      <div className="text-3xl sm:text-4xl md:text-5xl">🍹</div>
                     )}
                   </div>
 
                   {/* Product Info - محسّن للموبايل */}
-                  <div className="p-3 sm:p-4 flex flex-col flex-grow">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-1 flex-1">{product.name}</h3>
-                      <div className="flex items-center gap-0.5 sm:gap-1 ml-1 flex-shrink-0">
-                        <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 fill-current" />
-                        <span className="text-xs sm:text-sm font-semibold text-gray-700">4.8</span>
+                  <div className="p-2 sm:p-3 md:p-4 flex flex-col flex-grow">
+                    <div className="flex items-start justify-between mb-1 sm:mb-2">
+                      <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 line-clamp-1 flex-1">{product.name}</h3>
+                      <div className="flex items-center gap-0.5 flex-shrink-0">
+                        <Star className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 text-yellow-500 fill-current" />
+                        <span className="text-xs font-semibold text-gray-700">4.8</span>
                       </div>
                     </div>
 
-                    <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2 hidden sm:block flex-grow">{product.description}</p>
+                    <p className="text-gray-600 text-xs mb-2 line-clamp-2 hidden sm:block flex-grow">{product.description}</p>
 
                     {/* السعر - مركزي في الموبايل */}
-                    <div className="flex items-center justify-center sm:justify-between gap-2 mt-auto">
-                      <div className="flex items-center gap-1">
-                        <span className="text-xl sm:text-2xl font-bold text-primary">{product.price}</span>
-                        <span className="text-gray-600 text-sm">ريال</span>
-                      </div>
-
-                      {/* زر الإضافة - مخفي في الموبايل */}
-                      <button className="hidden sm:flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-sm"
-                        style={{ backgroundColor: '#9a488d', border: '1px solid #edd674' }}>
-                        <Plus className="h-4 w-4" />
-                        إضافة
-                      </button>
+                    <div className="flex items-center justify-center gap-1 mt-auto">
+                      <span className="text-lg sm:text-xl md:text-2xl font-bold text-primary">{product.price}</span>
+                      <span className="text-gray-600 text-xs">ريال</span>
                     </div>
                   </div>
                 </div>

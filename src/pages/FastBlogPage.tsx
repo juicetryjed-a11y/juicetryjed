@@ -5,6 +5,8 @@ import SimpleHeader from '@/components/layout/SimpleHeader'
 import Footer from '@/components/layout/Footer'
 import BlogPostModal from '@/components/ui/BlogPostModal'
 import { dataService } from '@/lib/dataService'
+import logo2Image from '../components/logo2.png'
+import heroLogoImage from './logo 0.png'
 
 const FastBlogPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -258,11 +260,7 @@ const FastBlogPage: React.FC = () => {
         className="min-h-screen relative overflow-hidden"
         style={{
           marginTop: '-80px',
-          backgroundImage: "url('/final-logo-01.png')",
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundColor: 'transparent'
+          backgroundColor: '#edd674'
         }}
       >
         {/* Decorative elements */}
@@ -271,6 +269,11 @@ const FastBlogPage: React.FC = () => {
           <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
           <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
           <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
+        </div>
+
+        {/* Hero Logo */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img src={heroLogoImage} alt="Juicetry Logo" className="h-32 md:h-48 w-auto object-contain drop-shadow-2xl" />
         </div>
       </section>
 
