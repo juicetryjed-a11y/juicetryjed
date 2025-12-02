@@ -10,19 +10,21 @@ interface SiteSettings {
   primary_color?: string
   secondary_color?: string
   accent_color?: string
-  site_email?: string
-  site_phone?: string
-  site_address?: string
+  contact_phone?: string
+  contact_email?: string
+  contact_address?: string
   working_hours?: string
+  facebook_url?: string
+  instagram_url?: string
+  twitter_url?: string
+  youtube_url?: string
   whatsapp_number?: string
   google_maps_url?: string
-  social_facebook?: string
-  social_instagram?: string
-  social_twitter?: string
-  social_youtube?: string
   meta_title?: string
   meta_description?: string
   meta_keywords?: string
+  analytics_code?: string
+  maintenance_mode?: boolean
 }
 
 export const useSiteSettings = () => {

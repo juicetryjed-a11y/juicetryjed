@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/contexts/SimpleAuthContext'
 import FastHomePage from '@/pages/FastHomePage'
 import FastMenuPage from '@/pages/FastMenuPage'
@@ -11,6 +11,7 @@ import ProductsPage from '@/pages/ProductsPage'
 import AdminLogin from '@/pages/admin/AdminLogin'
 import Dashboard from '@/pages/admin/Dashboard'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import MaintenancePage from '@/pages/MaintenancePage'
 import { dataService } from '@/lib/dataService'
 import { applyThemeColors } from '@/hooks/useTheme'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
@@ -40,6 +41,10 @@ function App() {
 
   // تحميل إعدادات الموقع
   const { settings: siteSettings, loading: settingsLoading } = useSiteSettings()
+
+  // الحصول على وضع الصيانة من الإعدادات
+  const maintenanceMode = siteSettings?.maintenance_mode || false
+  const checkingMaintenance = settingsLoading
 
   // تحميل وتطبيق الألوان من localStorage أو قاعدة البيانات
   useEffect(() => {
@@ -89,40 +94,63 @@ function App() {
     }
   }, [siteSettings])
 
+  // عرض صفحة الصيانة إذا كان الوضع مفعل
+  if (checkingMaintenance) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50">
+        <LoadingSpinner message="فحص إعدادات الموقع..." size="lg" />
+      </div>
+    )
+  }
+
   return (
     <AuthProvider>
       <Router>
-        <Routes>
-          {/* الصفحات العامة */}
-          {/* جعل صفحة المنيو هي الصفحة الرئيسية */}
-          <Route path="/" element={<FastMenuPage />} />
-          <Route path="/home" element={<FastHomePage />} />
-          <Route path="/menu" element={<FastMenuPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/about" element={<ImprovedAboutPage />} />
-          <Route path="/blog" element={<FastBlogPage />} />
-          <Route path="/blog/:id" element={<BlogPostPage />} />
-          <Route path="/contact" element={<FastContactPage />} />
-
-          {/* صفحة اختبار الاتصال */}
-          <Route path="/test-db" element={<TestConnection />} />
-
-          {/* صفحات الإدارة */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* إعادة توجيه المسارات غير الموجودة */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <AppRoutes maintenanceMode={maintenanceMode} />
       </Router>
     </AuthProvider>
+  )
+}
+
+const AppRoutes: React.FC<{ maintenanceMode: boolean }> = ({ maintenanceMode }) => {
+  const location = useLocation()
+  const isAdminPath = location.pathname.startsWith('/admin')
+
+  // إذا كان وضع الصيانة مفعل وليس مسار إداري، أظهر صفحة الصيانة
+  if (maintenanceMode && !isAdminPath) {
+    return <MaintenancePage />
+  }
+
+  return (
+    <Routes>
+      {/* الصفحات العامة */}
+      {/* جعل صفحة المنيو هي الصفحة الرئيسية */}
+      <Route path="/" element={<FastMenuPage />} />
+      <Route path="/home" element={<FastHomePage />} />
+      <Route path="/menu" element={<FastMenuPage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/about" element={<ImprovedAboutPage />} />
+      <Route path="/blog" element={<FastBlogPage />} />
+      <Route path="/blog/:id" element={<BlogPostPage />} />
+      <Route path="/contact" element={<FastContactPage />} />
+
+      {/* صفحة اختبار الاتصال */}
+      <Route path="/test-db" element={<TestConnection />} />
+
+      {/* صفحات الإدارة */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* إعادة توجيه المسارات غير الموجودة */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 

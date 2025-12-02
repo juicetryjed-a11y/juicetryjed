@@ -45,9 +45,9 @@ const FastContactPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-accent-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
           <p className="text-gray-600">جاري تحميل بيانات التواصل...</p>
         </div>
       </div>
@@ -87,34 +87,27 @@ const FastContactPage: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#edd674' }}>
       <SimpleHeader />
 
-      {/* Hero Section */}
+      {/* Hero Section - Same as home page */}
       <section
-        className="pt-24 pb-16 relative overflow-hidden"
-        style={{ backgroundColor: settings?.hero_bg_color || 'transparent' }}
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          marginTop: '-80px',
+          backgroundImage: "url('/final-logo-01.png')",
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundColor: 'transparent'
+        }}
       >
+        {/* Decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-20 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="mb-8">
-            <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <MessageSquare className="h-10 w-10 text-white" />
-            </div>
-            <h1
-              className="text-4xl md:text-6xl font-bold mb-4"
-              style={{ color: settings?.hero_text_color || '#166534' }}
-            >
-              {settings?.hero_title || 'تواصل معنا'}
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
-              {settings?.hero_subtitle || 'نحن هنا للإجابة على جميع استفساراتكم ومساعدتكم في اختيار أفضل العصائر'}
-            </p>
-          </div>
+          <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
         </div>
       </section>
 
@@ -125,7 +118,7 @@ const FastContactPage: React.FC = () => {
             {contactInfo.map((info, index) => (
               <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <info.icon className="h-8 w-8 text-white" />
+                  <info.icon className="h-8 w-8 text-white" style={{ color: '#edd674' }} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{info.title}</h3>
                 <p className="text-green-600 font-semibold mb-2" dir="ltr">{info.details}</p>
@@ -305,22 +298,7 @@ const FastContactPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Map */}
-              {settings?.show_map && (
-                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">{settings.map_title || 'موقعنا'}</h3>
-                  <div className="bg-gray-200 rounded-xl h-64 overflow-hidden flex items-center justify-center">
-                    {/* هنا يمكن إضافة iframe للخريطة إذا توفر الرابط */}
-                    <div className="text-center p-4">
-                      <MapPin className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-                      <p className="text-gray-600">الخريطة غير متوفرة حالياً</p>
-                      <a href={settings.google_maps_url} target="_blank" rel="noreferrer" className="text-green-600 hover:underline mt-2 block">
-                        فتح في خرائط جوجل
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              )}
+
             </div>
           </div>
         </div>

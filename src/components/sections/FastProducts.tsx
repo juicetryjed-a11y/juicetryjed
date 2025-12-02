@@ -40,7 +40,7 @@ const FastProducts: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-secondary"></div>
             <p className="mt-4 text-gray-600">جاري تحميل المنتجات...</p>
           </div>
         </div>
@@ -49,7 +49,7 @@ const FastProducts: React.FC = () => {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-primary-50">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -71,10 +71,10 @@ const FastProducts: React.FC = () => {
             products.map((product) => (
               <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden border border-gray-100">
                 {/* Product Image */}
-                <div className="h-48 bg-gradient-to-br from-green-50 to-lime-50 flex items-center justify-center">
+                <div className="h-48 bg-gradient-to-br from-secondary-50 to-accent-50 flex items-center justify-center">
                   {product.image_url ? (
-                    <img 
-                      src={product.image_url} 
+                    <img
+                      src={product.image_url}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
@@ -97,11 +97,11 @@ const FastProducts: React.FC = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
-                    <span className="text-2xl font-bold text-green-600">{product.price}</span>
+                    <span className="text-2xl font-bold text-primary">{product.price}</span>
                     <span className="text-gray-600">ريال</span>
                   </div>
 
-                  <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold">
+                  <button className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold">
                     <Plus className="h-4 w-4" />
                     إضافة
                   </button>
@@ -114,9 +114,9 @@ const FastProducts: React.FC = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Link 
+          <Link
             to="/menu"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            className="inline-block px-8 py-4 bg-secondary text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             عرض جميع المنتجات
           </Link>

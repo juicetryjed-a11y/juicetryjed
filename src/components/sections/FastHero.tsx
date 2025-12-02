@@ -16,35 +16,22 @@ const FastHero: React.FC = () => {
   }
   
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen bg-secondary flex items-center justify-center overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-yellow-200 rounded-full opacity-10 animate-pulse"></div>
+        <div className="absolute top-20 right-20 w-32 h-32 bg-accent rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal rounded-full opacity-10 animate-pulse"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Logo */}
         <div className="mb-8">
-          {homeSettings?.logo_url ? (
-            <img 
-              src={homeSettings.logo_url} 
-              alt="Logo" 
-              style={{
-                width: `${homeSettings.logo_width || 120}px`,
-                height: `${homeSettings.logo_height || 120}px`
-              }}
-              className="mx-auto mb-4 object-contain"
-            />
-          ) : (
-            <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
-              <div className="flex items-center gap-1">
-                <Coffee className="h-8 w-8 text-white" />
-                <Leaf className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          )}
+          <img
+            src="/final-logo-01.png"
+            alt="Juicetry Logo"
+            className="h-32 md:h-40 w-auto object-contain mx-auto mb-6 shadow-2xl drop-shadow-lg"
+          />
           <h1 
             className="font-bold mb-4"
             style={{
@@ -84,25 +71,25 @@ const FastHero: React.FC = () => {
           {/* Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Leaf className="h-6 w-6 text-white" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">100% طبيعي</h4>
-              <p className="text-gray-600">بدون إضافات صناعية أو مواد حافظة</p>
+            <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <Leaf className="h-6 w-6 text-white" />
             </div>
+            <h4 className="text-lg font-bold text-gray-900 mb-2">100% طبيعي</h4>
+            <p className="text-gray-600">بدون إضافات صناعية أو مواد حافظة</p>
+          </div>
 
-            <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="w-12 h-12 bg-lime-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Coffee className="h-6 w-6 text-white" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">طازج يومياً</h4>
-              <p className="text-gray-600">نحضر عصائرنا طازجة كل يوم</p>
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+            <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+              <Coffee className="h-6 w-6 text-white" />
             </div>
+            <h4 className="text-lg font-bold text-gray-900 mb-2">طازج يومياً</h4>
+            <p className="text-gray-600">نحضر عصائرنا طازجة كل يوم</p>
+          </div>
 
-            <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-              <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="h-6 w-6 text-white" />
-              </div>
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+            <div className="w-12 h-12 bg-teal rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="h-6 w-6 text-white" />
+            </div>
               <h4 className="text-lg font-bold text-gray-900 mb-2">جودة عالية</h4>
               <p className="text-gray-600">أفضل الفواكه والخضروات المختارة</p>
             </div>
@@ -123,9 +110,9 @@ const FastHero: React.FC = () => {
               {homeSettings?.hero_cta_text || 'اطلب الآن'}
             </Link>
             
-            <Link 
+            <Link
               to="/menu"
-              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-green-200 flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-accent-light flex items-center justify-center gap-2"
             >
               تصفح المنيو
               <ArrowLeft className="h-5 w-5" />

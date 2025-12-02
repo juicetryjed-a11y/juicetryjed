@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Search, Filter, ShoppingCart, Star, Edit, Trash2, Eye, Plus } from 'lucide-react'
+import { Search, Filter, ShoppingCart, Star, Edit, Trash2, Eye, Plus, Coffee } from 'lucide-react'
 import { dataService } from '@/lib/dataService'
 import { useAuth } from '@/contexts/SimpleAuthContext'
 import { Link } from 'react-router-dom'
+import SimpleHeader from '@/components/layout/SimpleHeader'
+import Footer from '@/components/layout/Footer'
 
 interface Category {
   id: number
@@ -212,43 +214,61 @@ const ProductsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-lime-600 bg-clip-text text-transparent">
-                منتجاتنا الطبيعية
-              </h1>
-              <p className="text-gray-600 mt-1">
-                اكتشف أفضل العصائر الطبيعية الطازجة
-                {dataService.isUsingMockData() && ' (وضع البيانات التجريبية)'}
-              </p>
-            </div>
-            {isAdmin && (
-              <div className="flex gap-3">
-                <Link
-                  to="/admin/dashboard"
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                >
-                  <Eye className="h-4 w-4" />
-                  لوحة الإدارة
-                </Link>
-                <Link
-                  to="/admin/dashboard?tab=products"
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all"
-                >
-                  <Plus className="h-4 w-4" />
-                  إضافة منتج
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-teal-50">
+      <SimpleHeader />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Hero Section - Mobile: white background only, Desktop: logo image */}
+      <section
+        className="min-h-screen relative overflow-hidden hero-bg-mobile md:hero-bg-desktop"
+        style={{ marginTop: '-80px' }}
+      >
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #9a488d' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #6b6b6b' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #f05a3d' }}></div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="pt-32 pb-16 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100" style={{ marginTop: '100px' }}>
+        <div className="container mx-auto px-6 text-center">
+          <div className="mb-8">
+            <h1
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: '#166534' }}
+            >
+              منتجاتنا الطبيعية
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
+              اكتشف أفضل العصائر الطبيعية الطازجة
+              {dataService.isUsingMockData() && ' (وضع البيانات التجريبية)'}
+            </p>
+          </div>
+          {isAdmin && (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Link
+                to="/admin/dashboard"
+                className="px-8 py-4 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                style={{ backgroundColor: '#9a488d', border: '2px solid #6b6b6b' }}
+              >
+                <Eye className="h-5 w-5" />
+                لوحة الإدارة
+              </Link>
+              <Link
+                to="/admin/dashboard?tab=products"
+                className="px-8 py-4 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                style={{ backgroundColor: '#91719b', border: '2px solid #f05a3d' }}
+              >
+                <Plus className="h-5 w-5" />
+                إضافة منتج
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="container mx-auto px-6 py-8">
         {/* Filters */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-8 border border-green-100">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -589,6 +609,8 @@ const ProductsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      <Footer />
     </div>
   )
 }

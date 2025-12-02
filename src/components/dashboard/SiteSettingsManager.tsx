@@ -27,6 +27,7 @@ interface SiteSettings {
   meta_description: string
   meta_keywords: string
   analytics_code: string
+  maintenance_mode: boolean
   updated_at?: string
 }
 
@@ -52,7 +53,8 @@ const SiteSettingsManager: React.FC = () => {
     meta_title: 'Juicetry - أفضل العصائر الطبيعية',
     meta_description: 'اكتشف أفضل العصائر الطبيعية الطازجة في Juicetry. عصائر صحية ولذيذة من أجود الفواكه والخضروات.',
     meta_keywords: 'عصائر طبيعية، عصائر طازجة، مشروبات صحية، فواكه، خضروات',
-    analytics_code: ''
+    analytics_code: '',
+    maintenance_mode: false
   })
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'general' | 'contact' | 'social' | 'seo' | 'advanced'>('general')
@@ -95,11 +97,33 @@ const SiteSettingsManager: React.FC = () => {
 
       if (data && Array.isArray(data) && data.length > 0) {
         // دمج البيانات من قاعدة البيانات مع القيم الافتراضية
+        const loadedData = { ...data[0] }
+        // التأكد من أن maintenance_mode دائماً boolean
+        if (typeof loadedData.maintenance_mode === 'boolean') {
+          // already boolean, good
+        } else {
+          // null, undefined, or other value - default to false
+          loadedData.maintenance_mode = false
+        }
+        // تحويل جميع القيم null إلى empty string للحقول النصية
+        const stringFields = ['site_name', 'site_description', 'site_logo', 'site_favicon', 'contact_phone', 'contact_email', 'contact_address', 'working_hours', 'facebook_url', 'twitter_url', 'instagram_url', 'youtube_url', 'whatsapp_number', 'google_maps_url', 'meta_title', 'meta_description', 'meta_keywords', 'analytics_code']
+        stringFields.forEach(field => {
+          if (loadedData[field] === null || loadedData[field] === undefined) {
+            loadedData[field] = ''
+          }
+        })
+        // التأكد من أن القيم اللونية ليست null
+        const colorFields = ['primary_color', 'secondary_color', 'accent_color']
+        colorFields.forEach(field => {
+          if (loadedData[field] === null || loadedData[field] === undefined) {
+            loadedData[field] = '#22c55e' // default green
+          }
+        })
         setSettings({
           ...settings, // القيم الافتراضية
-          ...data[0]   // البيانات من قاعدة البيانات
+          ...loadedData   // البيانات من قاعدة البيانات
         })
-        console.log('✅ Settings loaded:', data[0])
+        console.log('✅ Settings loaded:', loadedData)
       }
     } catch (error) {
       console.error('Error loading site settings:', error)
@@ -589,6 +613,39 @@ const SiteSettingsManager: React.FC = () => {
 
   const renderAdvancedSettings = () => (
     <div className="space-y-6">
+      {/* Maintenance Mode Toggle */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <h3 className="text-lg font-semibold text-yellow-800 mb-3 flex items-center gap-2">
+          ⚠️ وضع الصيانة
+        </h3>
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-yellow-800 mb-1">
+              تفعيل وضع الصيانة
+            </label>
+            <p className="text-sm text-yellow-700">
+              عند التفعيل، سيجد جميع الزوار صفحة "قريباً" بدلاً من الموقع العادي
+            </p>
+          </div>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={settings.maintenance_mode}
+              onChange={(e) => setSettings({ ...settings, maintenance_mode: e.target.checked })}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 peer-checked:bg-yellow-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:border-yellow-600"></div>
+          </label>
+        </div>
+        {settings.maintenance_mode && (
+          <div className="mt-3 p-3 bg-yellow-100 rounded-md">
+            <p className="text-sm text-yellow-800">
+              ⚠️ الموقع في وضع الصيانة. ستظهر صفحة الصيانة لجميع الزوار.
+            </p>
+          </div>
+        )}
+      </div>
+
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-2">
           كود Google Analytics

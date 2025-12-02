@@ -82,28 +82,43 @@ const ImprovedAboutPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#edd674' }}>
       <SimpleHeader />
-      
-      {/* Hero Section - نفس تصميم باقي الصفحات */}
-      <section className="relative bg-gradient-to-br from-green-600 via-green-500 to-emerald-600 text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 25px 25px, rgba(255,255,255,0.1) 2px, transparent 2px)`,
-            backgroundSize: '50px 50px'
-          }}></div>
+
+      {/* Hero Section - Same as home page */}
+      <section
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          marginTop: '-80px',
+          backgroundImage: "url('/final-logo-01.png')",
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundColor: 'transparent'
+        }}
+      >
+        {/* Decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
         </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-white">
+      </section>
+
+      {/* Content Section */}
+      <section className="pt-32 pb-16 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100" style={{ marginTop: '100px' }}>
+        <div className="container mx-auto px-6 text-center">
+          <div className="mb-8">
+            <h1
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: '#166534' }}
+            >
               {settings.hero_title}
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl font-medium mb-6 md:mb-8 opacity-90 text-green-100">
+            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
               {settings.hero_subtitle}
             </p>
-            <div className="w-16 md:w-24 h-1 bg-white/30 mx-auto rounded-full"></div>
           </div>
         </div>
       </section>
@@ -111,7 +126,7 @@ const ImprovedAboutPage: React.FC = () => {
       <main className="container mx-auto px-4 py-12 md:py-16">
         {/* الوصف العام */}
         <div className="max-w-4xl mx-auto mb-16 md:mb-20">
-          <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg border border-gray-100">
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-6 md:p-8 lg:p-12 shadow-xl">
             <p className="text-base md:text-lg lg:text-xl leading-relaxed text-center text-gray-700">
               {settings.hero_description}
             </p>
@@ -121,7 +136,7 @@ const ImprovedAboutPage: React.FC = () => {
         {/* الأقسام الرئيسية - تصميم محسن للموبايل */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
           {/* الرسالة */}
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center">
             <div className="text-center mb-6">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Heart className="h-8 w-8 md:h-10 md:w-10 text-white" />
@@ -136,7 +151,7 @@ const ImprovedAboutPage: React.FC = () => {
           </div>
 
           {/* الرؤية */}
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center">
             <div className="text-center mb-6">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Eye className="h-8 w-8 md:h-10 md:w-10 text-white" />
@@ -151,7 +166,7 @@ const ImprovedAboutPage: React.FC = () => {
           </div>
 
           {/* القيم */}
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 md:col-span-2 lg:col-span-1">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center md:col-span-2 lg:col-span-1">
             <div className="text-center mb-6">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Award className="h-8 w-8 md:h-10 md:w-10 text-white" />
@@ -168,24 +183,25 @@ const ImprovedAboutPage: React.FC = () => {
 
         {/* دعوة للعمل - تصميم محسن للموبايل */}
         <div className="text-center">
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 md:p-8 lg:p-12 border border-green-100 max-w-3xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+          <div className="bg-red-500 rounded-3xl p-8 md:p-12 text-white max-w-3xl mx-auto">
+            <h3 className="text-3xl font-bold mb-4">
               جرب عصائرنا الطبيعية اليوم!
             </h3>
-            <p className="text-base md:text-lg mb-6 md:mb-8 text-gray-600">
+            <p className="text-xl mb-8 opacity-90">
               اكتشف الطعم الأصيل والجودة العالية في كل رشفة
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/menu"
-                className="inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
+            <a
+              href="/menu"
+              className="px-8 py-4 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              style={{ backgroundColor: '#9a488d', border: '2px solid #edd674' }}
+            >
                 تصفح القائمة
-                <ArrowRight className="mr-2 h-5 w-5" />
               </a>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center border-2 border-green-600 text-green-600 px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg hover:bg-green-600 hover:text-white transition-all duration-300"
+                className="px-8 py-4 bg-white/20 backdrop-blur-sm text-red-500 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                style={{ border: '2px solid #f05a3d', color: '#f05a3d' }}
               >
                 تواصل معنا
               </a>

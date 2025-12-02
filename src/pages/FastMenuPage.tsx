@@ -83,7 +83,7 @@ const FastMenuPage: React.FC = () => {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#edd674' }}>
       <SEO
         title="منيو Juicetry - جوستري | عصائر طبيعية طازجة"
         description="تصفح منيو Juicetry الكامل واختر من بين مجموعة واسعة من العصائر الطبيعية الطازجة المحضرة من أجود الفواكه والخضروات. عصائر صحية ولذيذة بأسعار مناسبة"
@@ -99,19 +99,38 @@ const FastMenuPage: React.FC = () => {
       {/* Global Header */}
       <SimpleHeader />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
+      {/* Hero Section - Same for mobile and desktop */}
+      <section
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          marginTop: '-80px',
+          backgroundImage: "url('/final-logo-01.png')",
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundColor: 'transparent'
+        }}
+      >
+        {/* Decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-teal opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-coral opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #9a488d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #f05a3d' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-accent-light opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #6b6b6b' }}></div>
         </div>
+      </section>
 
-        <div className="relative z-10 container mx-auto px-6 text-center">
+      {/* Content Section */}
+      <section className="pt-32 pb-16 relative overflow-hidden" style={{ marginTop: '100px', backgroundColor: '#edd674' }}>
+        <div className="container mx-auto px-6 text-center">
           <div className="mb-8">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-700 to-lime-600 bg-clip-text text-transparent mb-4">
+            <h1
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: '#166534' }}
+            >
               منيو Juicetry
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 font-medium">
+            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
               اكتشف مجموعتنا الواسعة من العصائر الطبيعية الطازجة
             </p>
           </div>
@@ -130,7 +149,7 @@ const FastMenuPage: React.FC = () => {
                 placeholder="ابحث عن عصيرك المفضل..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pr-10 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                className="w-full pr-10 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all"
               />
             </div>
 
@@ -143,10 +162,11 @@ const FastMenuPage: React.FC = () => {
               {/* زر الكل */}
               <button
                 onClick={() => setSelectedCategory(null)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === null
-                    ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg'
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === null
+                    ? 'text-white shadow-lg'
                     : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
                   }`}
+                  style={{ backgroundColor: selectedCategory === null ? '#91719b' : undefined }}
               >
                 <span className="text-lg">🍹</span>
                 جميع المنتجات
@@ -156,10 +176,10 @@ const FastMenuPage: React.FC = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
-                    }`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === category.id
+                    ? 'bg-green-500 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
+                  }`}
                 >
                   {category.name}
                 </button>
@@ -174,7 +194,7 @@ const FastMenuPage: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6">
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-secondary"></div>
               <p className="mt-4 text-gray-600">جاري تحميل المنتجات...</p>
             </div>
           ) : filteredProducts.length === 0 ? (
@@ -188,7 +208,7 @@ const FastMenuPage: React.FC = () => {
               {filteredProducts.map((product) => (
                 <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden flex flex-col">
                   {/* Product Image - حجم ثابت ومتناسق */}
-                  <div className="relative w-full h-40 sm:h-48 md:h-56 bg-gradient-to-br from-green-50 to-lime-50 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="relative w-full h-40 sm:h-48 md:h-56 bg-gradient-to-br from-secondary-50 to-accent-50 flex items-center justify-center overflow-hidden flex-shrink-0">
                     {product.image_url ? (
                       <img
                         src={product.image_url}
@@ -216,12 +236,13 @@ const FastMenuPage: React.FC = () => {
                     {/* السعر - مركزي في الموبايل */}
                     <div className="flex items-center justify-center sm:justify-between gap-2 mt-auto">
                       <div className="flex items-center gap-1">
-                        <span className="text-xl sm:text-2xl font-bold text-green-600">{product.price}</span>
+                        <span className="text-xl sm:text-2xl font-bold text-primary">{product.price}</span>
                         <span className="text-gray-600 text-sm">ريال</span>
                       </div>
 
                       {/* زر الإضافة - مخفي في الموبايل */}
-                      <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-sm">
+                      <button className="hidden sm:flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-sm"
+                        style={{ backgroundColor: '#9a488d', border: '1px solid #edd674' }}>
                         <Plus className="h-4 w-4" />
                         إضافة
                       </button>
@@ -246,13 +267,15 @@ const FastMenuPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="px-8 py-4 text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              style={{ backgroundColor: '#edd674', border: '2px solid #9a488d' }}
             >
               تواصل معنا
             </Link>
             <Link
               to="/"
-              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-green-200"
+              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              style={{ border: '2px solid #91719b' }}
             >
               العودة للرئيسية
             </Link>

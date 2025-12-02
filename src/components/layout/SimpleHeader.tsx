@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Search, ShoppingCart, User } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import logoImage from '../../final logo -02.png'
 
 interface NavigationItem {
   id: string
@@ -84,25 +85,14 @@ const SimpleHeader: React.FC = () => {
       )}
 
       <header
-        className={`${isSticky ? 'sticky top-0' : 'relative'} left-0 right-0 z-50 transition-colors duration-300 shadow-sm`}
-        style={{ backgroundColor: bgColor, color: textColor }}
+        className={`${isSticky ? 'sticky top-0' : 'relative'} left-0 right-0 z-50 transition-colors duration-300 shadow-lg`}
+        style={{ backgroundColor: '#ffffff' }}
       >
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-6 py-2">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
-              {settings?.show_logo && settings?.logo_url ? (
-                <img src={settings.logo_url} alt="Logo" className="h-10 w-auto object-contain" />
-              ) : (
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold">J</span>
-                  </div>
-                  <div>
-                    <h1 className="text-xl font-bold" style={{ color: textColor }}>Juicetry</h1>
-                  </div>
-                </div>
-              )}
+            <Link to="/" className="flex items-center gap-2">
+              <img src={logoImage} alt="Logo" className="h-16 w-32 object-contain" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -120,64 +110,32 @@ const SimpleHeader: React.FC = () => {
               ))}
             </nav>
 
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-4">
-              {settings?.show_search && (
-                <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" style={{ color: textColor }}>
-                  <Search className="h-5 w-5" />
-                </button>
-              )}
-
-              {settings?.show_cart && (
-                <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full transition-colors relative" style={{ color: textColor }}>
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">0</span>
-                </Link>
-              )}
-
-              <Link
-                to="/contact"
-                className="px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-              >
-                اطلب الآن
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              style={{ color: textColor }}
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {/* Actions - Same for mobile and desktop */}
+        <div className="flex items-center gap-4">
+          {settings?.show_search && (
+            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" style={{ color: textColor }}>
+              <Search className="h-5 w-5" />
             </button>
+          )}
+
+          {settings?.show_cart && (
+            <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full transition-colors relative" style={{ color: textColor }}>
+              <ShoppingCart className="h-5 w-5" />
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">0</span>
+            </Link>
+          )}
+
+          <Link
+            to="/contact"
+            className="px-4 py-2 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+            style={{ backgroundColor: '#91719b' }}
+          >
+            اطلب الآن
+          </Link>
+        </div>
           </div>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200 mt-4">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.url}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-lg font-medium transition-colors hover:bg-gray-50`}
-                    style={{ color: textColor }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <Link
-                  to="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg font-medium text-center bg-green-500 text-white mt-2"
-                >
-                  اطلب الآن
-                </Link>
-              </nav>
-            </div>
-          )}
+
         </div>
       </header>
     </>

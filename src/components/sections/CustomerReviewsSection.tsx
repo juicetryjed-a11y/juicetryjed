@@ -71,7 +71,7 @@ const CustomerReviewsSection: React.FC = () => {
                 key={review.id} 
                 className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow relative"
               >
-                <div className="absolute top-4 left-4 text-orange-500 opacity-20">
+                <div className="absolute top-4 left-4 text-secondary opacity-20">
                   <Quote className="h-8 w-8" />
                 </div>
                 <div className="flex items-center mb-4">
@@ -81,7 +81,7 @@ const CustomerReviewsSection: React.FC = () => {
                   "{review.review_text}"
                 </p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center ml-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center ml-4">
                     {review.customer_image_url ? (
                       <img 
                         src={review.customer_image_url}
@@ -103,8 +103,8 @@ const CustomerReviewsSection: React.FC = () => {
             ))}
           </div>
           
-          <div className="text-center mt-12 p-8 bg-orange-50 rounded-xl">
-            <h3 className="text-3xl font-bold text-orange-500 mb-2">4.9/5</h3>
+          <div className="text-center mt-12 p-8 bg-coral-50 rounded-xl">
+            <h3 className="text-3xl font-bold text-primary mb-2">4.9/5</h3>
             <p className="text-gray-600 mb-4">متوسط تقييم العملاء</p>
             <div className="flex items-center justify-center">
               {renderStars(5)}
@@ -142,7 +142,7 @@ const CustomerReviewsSection: React.FC = () => {
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow relative"
             >
               {/* أيقونة الاقتباس */}
-              <div className="absolute top-4 left-4 text-orange-500 opacity-20">
+              <div className="absolute top-4 left-4 text-secondary opacity-20">
                 <Quote className="h-8 w-8" />
               </div>
               

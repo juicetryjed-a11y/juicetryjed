@@ -9,62 +9,62 @@
   :root {
     --radius: 0.5rem;
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 9%;           /* داكن */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 177 33% 51%; /* تركواز */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --popover-foreground: 47 77% 68%; /* ذهبي */
+    --primary: 8 86% 56%;            /* برتقالي محمر */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 274 44% 47%;        /* بنفسجي داكن */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;               /* رمادي فاتح */
+    --muted-foreground: 0 0% 42%;    /* رمادي */
+    --accent: 12 86% 75%;            /* مرجاني فاتح */
+    --accent-foreground: 274 44% 47%; /* بنفسجي داكن */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 8 86% 56%;               /* برتقالي محمر */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary: 8 86% 56%;      /* برتقالي محمر */
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+    --sidebar-ring: 8 86% 56%;         /* برتقالي محمر */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --background: 220 13% 9%;          /* داكن */
+    --foreground: 0 0% 100%;
+    --card: 220 13% 15%;              /* داكن فاتح قليلاً */
+    --card-foreground: 47 77% 68%;     /* ذهبي */
+    --popover: 220 13% 15%;
+    --popover-foreground: 8 86% 56%;   /* برتقالي محمر */
+    --primary: 8 86% 56%;              /* برتقالي محمر */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 12 86% 75%;           /* مرجاني فاتح */
+    --secondary-foreground: 220 13% 9%; /* داكن */
+    --muted: 12 86% 65%;               /* مرجاني داكن */
+    --muted-foreground: 0 0% 70%;      /* فاتح قليلاً للقراءة */
+    --accent: 274 44% 47%;             /* بنفسجي داكن */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 8 86% 56%;           /* برتقالي محمر */
+    --destructive-foreground: 0 0% 100%;
+    --border: 274 32% 30%;             /* بنفسجي داكن جداً */
+    --input: 274 32% 25%;
+    --ring: 8 86% 56%;                 /* برتقالي محمر */
+    --sidebar-background: 220 13% 15%;
+    --sidebar-foreground: 47 77% 68%;   /* ذهبي */
+    --sidebar-primary: 274 44% 47%;     /* بنفسجي داكن */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+    --sidebar-accent: 12 86% 75%;       /* مرجاني فاتح */
+    --sidebar-accent-foreground: 220 13% 9%; /* داكن */
+    --sidebar-border: 274 32% 30%;
+    --sidebar-ring: 47 77% 68%           /* ذهبي */
   }
 
   * {
@@ -202,4 +202,79 @@ img {
 /* Fixed positioning fix */
 .fixed {
   position: fixed;
+}
+
+/* Carbon-like hexagon shapes for background animation */
+.hexagon-shape {
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+  background: currentColor;
+  opacity: 0.15;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hexagon-shape-delay {
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+  background: currentColor;
+  opacity: 0.15;
+  animation: float 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.hexagon-shape-slow {
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+  background: currentColor;
+  opacity: 0.12;
+  animation: float 10s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(4deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+/* Carbon atom hexagonal grid pattern effect */
+.carbon-pattern {
+  background-image:
+    radial-gradient(circle at 25px 25px, rgba(255,255,255,0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75px 75px, rgba(255,255,255,0.1) 2px, transparent 2px),
+    linear-gradient(45deg, transparent 47%, rgba(255,255,255,0.05) 50%, transparent 53%),
+    linear-gradient(-45deg, transparent 47%, rgba(255,255,255,0.05) 50%, transparent 53%);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  animation: carbon-breathe 4s ease-in-out infinite;
+}
+
+@keyframes carbon-breathe {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Hero Section for Desktop - Logo image with cover to fill section */
+.hero-bg-desktop {
+  background-image: url('/final-logo-01.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #ffffff;
+  background-attachment: fixed;
+}
+
+/* Hero Section for Mobile - No background image, just floating elements */
+.hero-bg-mobile {
+  background-color: #ffffff;
 }

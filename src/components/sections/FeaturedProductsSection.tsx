@@ -71,7 +71,7 @@ const FeaturedProductsSection: React.FC = () => {
                         e.currentTarget.src = 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&h=300&fit=crop'
                       }}
                     />
-                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <div className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
                       مميز
                     </div>
                   </div>
@@ -87,12 +87,12 @@ const FeaturedProductsSection: React.FC = () => {
                     
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-2xl font-bold text-juicetry-coral">
+                        <span className="text-2xl font-bold text-primary">
                           {product.price} ريال
                         </span>
                       </div>
                       
-                      <button className="bg-juicetry-purple text-white p-3 rounded-xl hover:bg-juicetry-purple/90 transition-all transform hover:scale-105 shadow-lg">
+                      <button className="bg-accent text-white p-3 rounded-xl hover:bg-accent-light transition-all transform hover:scale-105 shadow-lg">
                         <ShoppingCart className="h-5 w-5" />
                       </button>
                     </div>
@@ -107,9 +107,9 @@ const FeaturedProductsSection: React.FC = () => {
           )}
           
           <div className="text-center mt-12">
-            <Link 
+            <Link
               to="/menu"
-              className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors inline-block"
+              className="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors inline-block"
             >
               عرض جميع المنتجات
             </Link>
@@ -151,7 +151,7 @@ const FeaturedProductsSection: React.FC = () => {
                   alt={product.name}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
                   مميز
                 </div>
               </div>
@@ -168,12 +168,12 @@ const FeaturedProductsSection: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-2xl font-bold text-orange-500">
+                    <span className="text-2xl font-bold text-primary">
                       {product.price} ريال
                     </span>
                   </div>
                   
-                  <button className="bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-600 transition-colors">
+                  <button className="bg-accent text-white p-3 rounded-lg hover:bg-accent-light transition-colors">
                     <ShoppingCart className="h-5 w-5" />
                   </button>
                 </div>
@@ -184,9 +184,9 @@ const FeaturedProductsSection: React.FC = () => {
         
         {/* رابط لعرض المزيد */}
         <div className="text-center mt-12">
-          <Link 
+          <Link
             to="/menu"
-            className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors inline-block"
+            className="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors inline-block"
           >
             عرض جميع المنتجات
           </Link>

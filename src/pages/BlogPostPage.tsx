@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, User, Tag, Eye, Heart, MessageCircle } from 'lucide-react'
 import SimpleHeader from '@/components/layout/SimpleHeader'
+import Footer from '@/components/layout/Footer'
 
 interface BlogPost {
   id: number
@@ -92,7 +93,7 @@ const BlogPostPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+      <div className="min-h-screen bg-teal-50">
         <SimpleHeader />
         <div className="pt-24 flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
@@ -103,32 +104,63 @@ const BlogPostPage: React.FC = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+      <div className="min-h-screen bg-teal-50">
         <SimpleHeader />
         <div className="pt-24 container mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">المقال غير موجود</h1>
           <p className="text-xl text-gray-600 mb-8">عذراً، لم نتمكن من العثور على المقال المطلوب</p>
-          <Link 
-            to="/blog" 
+          <Link
+            to="/blog"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg hover:shadow-lg transition-all"
           >
             <ArrowLeft className="h-5 w-5" />
             العودة للمدونة
           </Link>
         </div>
+        <Footer />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+    <div className="min-h-screen bg-teal-50">
       <SimpleHeader />
-      
-      <article className="pt-24 pb-12">
+
+      {/* Hero Section - Logo Background */}
+      <section
+        className="min-h-screen relative overflow-hidden responsive-hero-bg"
+        style={{ marginTop: '-80px' }}
+      >
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-accent opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-secondary opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #f05a3d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #6b6b6b' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-primary opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #9a488d' }}></div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="pt-32 pb-16 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100" style={{ marginTop: '100px' }}>
+        <div className="container mx-auto px-6 text-center">
+          <div className="mb-8">
+            <h1
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: '#166534' }}
+            >
+              مدونة Juicetry
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
+              اكتشف عالم العصائر الطبيعية من خلال مقالاتنا المفيدة والممتعة
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <article className="pb-12">
         <div className="container mx-auto px-6 max-w-4xl">
           {/* Back Button */}
-          <Link 
-            to="/blog" 
+          <Link
+            to="/blog"
             className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 mb-6 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -140,7 +172,7 @@ const BlogPostPage: React.FC = () => {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               {post.title}
             </h1>
-            
+
             {/* Meta Info */}
             <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-6">
               <div className="flex items-center gap-2">
@@ -201,15 +233,15 @@ const BlogPostPage: React.FC = () => {
           )}
 
           {/* Article Content */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <div 
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-8">
+            <div
               className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
 
           {/* Share Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl p-6 text-center mb-8">
             <h3 className="text-xl font-bold text-gray-900 mb-4">شارك هذا المقال</h3>
             <div className="flex justify-center gap-4">
               <button
@@ -230,6 +262,8 @@ const BlogPostPage: React.FC = () => {
           </div>
         </div>
       </article>
+
+      <Footer />
     </div>
   )
 }

@@ -4,12 +4,12 @@ import { Play, Star, Award, Users } from 'lucide-react'
 
 const ModernHeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 via-orange-50 to-yellow-50">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-accent-50 via-accent-100 to-primary-50">
       {/* خلفية متحركة */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-20 left-20 w-72 h-72 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-40 right-20 w-72 h-72 bg-primary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-teal-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-20">
@@ -18,15 +18,15 @@ const ModernHeroSection: React.FC = () => {
           <div className="text-center lg:text-right">
             {/* شارة الجودة */}
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg mb-6">
-              <Award className="h-5 w-5 text-orange-500" />
-              <span className="text-sm font-semibold text-gray-700">أفضل عصائر طبيعية في المملكة</span>
+              <Award className="h-5 w-5 text-secondary" />
+              <span className="text-sm font-semibold text-juicetry-gray">أفضل عصائر طبيعية في المملكة</span>
             </div>
 
             {/* العنوان الرئيسي */}
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
               <span className="text-gray-900">جوستري</span>
               <br />
-              <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-accent via-secondary to-accent-light bg-clip-text text-transparent">
                 العصائر الطبيعية
               </span>
             </h1>
@@ -41,39 +41,39 @@ const ModernHeroSection: React.FC = () => {
             <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-8">
               <div className="text-center">
                 <div className="flex items-center justify-center gap-1 mb-2">
-                  <Star className="h-5 w-5 text-yellow-400 fill-current" />
+                  <Star className="h-5 w-5 text-primary fill-current" />
                   <span className="text-2xl font-bold text-gray-900">4.9</span>
                 </div>
-                <p className="text-sm text-gray-600">تقييم العملاء</p>
+                <p className="text-sm text-juicetry-gray">تقييم العملاء</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center gap-1 mb-2">
-                  <Users className="h-5 w-5 text-green-500" />
+                  <Users className="h-5 w-5 text-teal" />
                   <span className="text-2xl font-bold text-gray-900">15K+</span>
                 </div>
-                <p className="text-sm text-gray-600">عميل سعيد</p>
+                <p className="text-sm text-juicetry-gray">عميل سعيد</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center gap-1 mb-2">
-                  <Award className="h-5 w-5 text-orange-500" />
+                  <Award className="h-5 w-5 text-secondary" />
                   <span className="text-2xl font-bold text-gray-900">50+</span>
                 </div>
-                <p className="text-sm text-gray-600">نوع عصير</p>
+                <p className="text-sm text-juicetry-gray">نوع عصير</p>
               </div>
             </div>
 
             {/* أزرار العمل */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link 
+              <Link
                 to="/menu"
-                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105"
+                className="group relative px-8 py-4 bg-gradient-to-r from-accent to-secondary text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-accent/25 transition-all duration-300 transform hover:scale-105"
               >
                 <span className="relative z-10">اطلب الآن</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent-light to-secondary/90 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
-              
+
               <button className="group flex items-center gap-3 px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-accent to-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Play className="h-5 w-5 text-white mr-1" />
                 </div>
                 شاهد الفيديو
@@ -92,18 +92,18 @@ const ModernHeroSection: React.FC = () => {
               />
               
               {/* عناصر ديكورية */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-xl">
                 <span className="text-white font-bold text-lg">100%</span>
               </div>
-              
+
               <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-teal to-primary rounded-full flex items-center justify-center">
                     <Award className="h-6 w-6 text-white" />
                   </div>
                   <div>
                     <p className="font-bold text-gray-900">طبيعي 100%</p>
-                    <p className="text-sm text-gray-600">بدون إضافات</p>
+                    <p className="text-sm text-juicetry-gray">بدون إضافات</p>
                   </div>
                 </div>
               </div>

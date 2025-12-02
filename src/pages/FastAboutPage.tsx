@@ -1,44 +1,8 @@
 import React from 'react'
 import { Coffee, Leaf, Star, Heart, Award, Users, Target, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import SimpleHeader from '@/components/layout/SimpleHeader'
 import Footer from '@/components/layout/Footer'
-
-// Simple Header Component
-const SimpleHeader: React.FC = () => {
-  return (
-    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center">
-              <Coffee className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Juicetry</h1>
-              <p className="text-sm text-gray-600">جوستري</p>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors">الرئيسية</Link>
-            <Link to="/menu" className="text-gray-700 hover:text-green-600 font-medium transition-colors">المنيو</Link>
-            <Link to="/about" className="text-green-600 font-bold">من نحن</Link>
-            <Link to="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors">تواصل معنا</Link>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <Link
-              to="/admin/login"
-              className="px-4 py-2 bg-gradient-to-r from-green-500 to-lime-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-            >
-              الإدارة
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  )
-}
 
 const FastAboutPage: React.FC = () => {
   const values = [
@@ -92,26 +56,30 @@ const FastAboutPage: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
+    <div className="min-h-screen bg-teal-50">
       <SimpleHeader />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-48 h-48 bg-lime-200 rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-yellow-200 rounded-full opacity-10 animate-pulse"></div>
+      {/* Hero Section - Logo Background */}
+      <section
+        className="min-h-screen relative overflow-hidden responsive-hero-bg"
+        style={{ marginTop: '-80px' }}
+      >
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-20 w-32 h-32 bg-accent opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #edd674' }}></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-secondary opacity-20 animate-pulse hexagon-shape-delay" style={{ border: '3px solid #f05a3d' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent opacity-15 animate-pulse hexagon-shape-slow" style={{ border: '2px solid #6b6b6b' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-28 h-28 bg-primary opacity-20 animate-pulse hexagon-shape" style={{ border: '3px solid #9a488d' }}></div>
         </div>
+      </section>
 
-        <div className="relative z-10 container mx-auto px-6 text-center">
+      {/* Content Section */}
+      <section className="pt-32 pb-16 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100" style={{ marginTop: '100px' }}>
+        <div className="container mx-auto px-6 text-center">
           <div className="mb-8">
-            <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-lime-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <div className="flex items-center gap-1">
-                <Coffee className="h-8 w-8 text-white" />
-                <Leaf className="h-6 w-6 text-white" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-700 to-lime-600 bg-clip-text text-transparent mb-4">
+            <h1
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: '#166534' }}
+            >
               من نحن
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto">
@@ -262,7 +230,7 @@ const FastAboutPage: React.FC = () => {
       {/* CTA Section */}
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
-          <div className="bg-gradient-to-r from-green-500 to-lime-500 rounded-3xl p-8 md:p-12 text-white">
+          <div className="bg-red-500 rounded-3xl p-8 md:p-12 text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               انضم إلى عائلة Juicetry
             </h2>
@@ -270,10 +238,10 @@ const FastAboutPage: React.FC = () => {
               اكتشف طعم الطبيعة الحقيقي واستمتع بتجربة فريدة من العصائر الطبيعية
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/menu"
-                className="px-8 py-4 bg-white text-green-600 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
+            <Link
+              to="/menu"
+              className="px-8 py-4 bg-accent text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
                 تصفح المنيو
               </Link>
               <Link

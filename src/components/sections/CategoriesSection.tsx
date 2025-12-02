@@ -102,7 +102,7 @@ const CategoriesSection: React.FC = () => {
                         )
                       })()}
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 text-center mb-2 group-hover:text-orange-500 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 text-center mb-2 group-hover:text-secondary transition-colors">
                       {category.name}
                     </h3>
                     {category.description && (
@@ -123,7 +123,7 @@ const CategoriesSection: React.FC = () => {
           <div className="text-center mt-12">
             <Link 
               to="/menu"
-              className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors inline-block"
+              className="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors inline-block"
             >
               عرض جميع التصنيفات
             </Link>
@@ -161,7 +161,7 @@ const CategoriesSection: React.FC = () => {
             >
               <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                 {/* أيقونة التصنيف */}
-                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center">
                   {category.image_url ? (
                     <img 
                       src={category.image_url} 
@@ -176,7 +176,7 @@ const CategoriesSection: React.FC = () => {
                 </div>
                 
                 {/* اسم التصنيف */}
-                <h3 className="text-lg font-bold text-gray-900 text-center mb-2 group-hover:text-orange-500 transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 text-center mb-2 group-hover:text-secondary transition-colors">
                   {category.name}
                 </h3>
                 
@@ -193,9 +193,9 @@ const CategoriesSection: React.FC = () => {
         
         {/* رابط لعرض جميع التصنيفات */}
         <div className="text-center mt-12">
-          <Link 
+          <Link
             to="/menu"
-            className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors inline-block"
+            className="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors inline-block"
           >
             عرض جميع التصنيفات
           </Link>

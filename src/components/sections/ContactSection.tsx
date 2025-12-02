@@ -49,7 +49,7 @@ const ContactSection: React.FC = () => {
               
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-secondary text-white rounded-lg flex items-center justify-center">
                     <Phone className="h-6 w-6" />
                   </div>
                   <div>
@@ -59,7 +59,7 @@ const ContactSection: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                     <Mail className="h-6 w-6" />
                   </div>
                   <div>
@@ -67,9 +67,9 @@ const ContactSection: React.FC = () => {
                     <p className="text-gray-600">info@joustry.com</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
@@ -77,9 +77,9 @@ const ContactSection: React.FC = () => {
                     <p className="text-gray-600">حي النخيل، الرياض، المملكة العربية السعودية</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                     <Clock className="h-6 w-6" />
                   </div>
                   <div>
@@ -98,44 +98,44 @@ const ContactSection: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">الاسم</label>
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                    <input
+                      type="text"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                       placeholder="اسمك الكامل"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">الهاتف</label>
-                    <input 
-                      type="tel" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                    <input
+                      type="tel"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                       placeholder="رقم الهاتف"
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label>
-                  <input 
-                    type="email" 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                     placeholder="بريدك الإلكتروني"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">الرسالة</label>
-                  <textarea 
+                  <textarea
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors resize-none"
                     placeholder="اكتب رسالتك هنا..."
                   ></textarea>
                 </div>
-                
-                <button 
+
+                <button
                   type="submit"
-                  className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-secondary text-white py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="h-5 w-5" />
                   إرسال الرسالة
@@ -175,7 +175,7 @@ const ContactSection: React.FC = () => {
             <div className="space-y-6">
               {/* الهاتف */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-secondary text-white rounded-lg flex items-center justify-center">
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
@@ -183,10 +183,10 @@ const ContactSection: React.FC = () => {
                   <p className="text-gray-600">+966 50 123 4567</p>
                 </div>
               </div>
-              
+
               {/* البريد الإلكتروني */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                   <Mail className="h-6 w-6" />
                 </div>
                 <div>
@@ -194,10 +194,10 @@ const ContactSection: React.FC = () => {
                   <p className="text-gray-600">info@joustry.com</p>
                 </div>
               </div>
-              
+
               {/* العنوان */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
@@ -205,10 +205,10 @@ const ContactSection: React.FC = () => {
                   <p className="text-gray-600">حي النخيل، الرياض، المملكة العربية السعودية</p>
                 </div>
               </div>
-              
+
               {/* ساعات العمل */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent text-white rounded-lg flex items-center justify-center">
                   <Clock className="h-6 w-6" />
                 </div>
                 <div>
@@ -228,44 +228,44 @@ const ContactSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">الاسم</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                     placeholder="اسمك الكامل"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">الهاتف</label>
-                  <input 
-                    type="tel" 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                  <input
+                    type="tel"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                     placeholder="رقم الهاتف"
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label>
-                <input 
-                  type="email" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                <input
+                  type="email"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors"
                   placeholder="بريدك الإلكتروني"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">الرسالة</label>
-                <textarea 
+                <textarea
                   rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-colors resize-none"
                   placeholder="اكتب رسالتك هنا..."
                 ></textarea>
               </div>
-              
-              <button 
+
+              <button
                 type="submit"
-                className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-secondary text-white py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2"
               >
                 <MessageCircle className="h-5 w-5" />
                 إرسال الرسالة
